@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation_paths"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.affinityapps.endeavor.ui.home.HomeFragment"
+        android:label="HomeFragment"
+        tools:layout="@layout/fragment_home" />
+    <fragment
+        android:id="@+id/formFragment"
+        android:name="com.affinityapps.endeavor.ui.form.FormFragment"
+        android:label="FormFragment"
+        tools:layout="@layout/fragment_form" />
+
+    <fragment
+        android:id="@+id/impactFragment"
+        android:name="com.affinityapps.endeavor.ui.impact.ImpactFragment"
+        android:label="ImpactFragment"
+        tools:layout="@layout/fragment_impact" />
+
+</navigation>

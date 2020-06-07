@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">Endeavor</string>
+
+<!--AppBar Options-->
+    <string name="dark_option">DarkMode</string>
+    <string name="view_option">GridView</string>
+    <string name="test_option">TestForMenu</string>
+
+<!--Bottom Navigation Menu Options-->
+    <string name="menu_home">Home</string>
+    <string name="menu_form">Form</string>
+    <string name="menu_impact">Impact</string>
+
+<!--Form Options-->
+    <string name="form_document_title">Document Title</string>
+    <string name="form_organization">Organization</string>
+    <string name="form_project">Project</string>
+    <string name="form_date">Date</string>
+    <string name="form_hours">Hours</string>
+    <string name="form_miles">Miles</string>
+    <string name="form_purchases">Purchases</string>
+</resources>
