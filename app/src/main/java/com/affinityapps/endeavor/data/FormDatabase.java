@@ -1,16 +1,15 @@
-package com.affinityapps.endeavor.model;
+package com.affinityapps.endeavor.data;
 
 import android.content.Context;
 import android.os.AsyncTask;
 
 import androidx.annotation.NonNull;
 import androidx.room.Database;
-import androidx.room.Delete;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
-@Database(entities = {Form.class}, version = 1)
+@Database(entities = {Form.class}, version = 1, exportSchema = false)
 public abstract class FormDatabase extends RoomDatabase {
 
     private static FormDatabase instance;

@@ -99,6 +99,16 @@
             android:inputType="numberDecimal"
             android:textSize="20sp" />
 
+        <Button
+            android:id="@+id/save_note_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/LightAccentGreen"
+            android:layout_below="@+id/edit_purchases"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="64dp"
+            android:layout_marginEnd="8dp"
+            android:text="@string/save_option"/>
 
     </RelativeLayout>
 </ScrollView>

@@ -1,4 +1,4 @@
-package com.affinityapps.endeavor.model;
+package com.affinityapps.endeavor.data;
 
 import android.app.Application;
 

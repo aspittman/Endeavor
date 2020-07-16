@@ -61,15 +61,15 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.dark_option:
-                //do something
-                return true;
+//            case R.id.dark_option:
+//                //do something
+//                return true;
             case R.id.switch_option:
                 //do switch
                 return true;
-            case R.id.test_option:
-                //do more
-                return true;
+//            case R.id.test_option:
+//                //do more
+//                return true;
 
             default:
                 return super.onOptionsItemSelected(item);

@@ -19,4 +19,7 @@
     <string name="form_hours">Hours</string>
     <string name="form_miles">Miles</string>
     <string name="form_purchases">Purchases</string>
+    <string name="save_option">Save</string>
+
+    <string name="nav_header_title">Baking App</string>
 </resources>

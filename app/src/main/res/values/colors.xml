@@ -3,4 +3,15 @@
     <color name="colorPrimary">#6200EE</color>
     <color name="colorPrimaryDark">#3700B3</color>
     <color name="colorAccent">#03DAC5</color>
+    <color name="colorLightPeach">#ff3d00</color>
+    <color name="colorBlack">#000000</color>
+    <color name="colorDarkPeach">#c30000</color>
+    <color name="colorBrightPeach">#ff7539</color>
+
+<!--Possible primary colors(LeafGreen)-->
+    <color name="PrimaryGreen">#24ba29</color>
+    <color name="PrimaryDarkGreen">#008900</color>
+    <color name="LightAccentGreen">#67ee5c</color>
+
+
 </resources>

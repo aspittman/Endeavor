@@ -2,11 +2,9 @@ package com.affinityapps.endeavor.ui.home;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.renderscript.ScriptGroup;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -14,14 +12,13 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.affinityapps.endeavor.R;
 import com.affinityapps.endeavor.Volunteer;
-import com.affinityapps.endeavor.model.Form;
-import com.affinityapps.endeavor.model.FormViewModel;
+import com.affinityapps.endeavor.data.Form;
+import com.affinityapps.endeavor.data.FormViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
