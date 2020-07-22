@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -8,17 +7,17 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:context=".ui.form.FormFragment">
+        tools:context=".ui.form.FormActivity">
 
         <EditText
             android:id="@+id/edit_document_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="64dp"
+            android:layout_marginTop="30dp"
             android:layout_marginEnd="8dp"
-            android:autofillHints="@string/form_organization"
-            android:hint="@string/form_organization"
+            android:autofillHints="@string/form_document_title"
+            android:hint="@string/form_document_title"
             android:inputType="text"
             android:textSize="20sp" />
 
@@ -26,6 +25,7 @@
             android:id="@+id/edit_organization"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/edit_document_title"
             android:layout_marginStart="8dp"
             android:layout_marginTop="64dp"
             android:layout_marginEnd="8dp"
@@ -103,12 +103,12 @@
             android:id="@+id/save_note_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/LightAccentGreen"
             android:layout_below="@+id/edit_purchases"
             android:layout_marginStart="8dp"
             android:layout_marginTop="64dp"
             android:layout_marginEnd="8dp"
-            android:text="@string/save_option"/>
+            android:background="@color/LightAccentGreen"
+            android:text="@string/save_option" />
 
     </RelativeLayout>
 </ScrollView>

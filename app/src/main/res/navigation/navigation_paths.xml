@@ -10,11 +10,6 @@
         android:name="com.affinityapps.endeavor.ui.home.HomeFragment"
         android:label="HomeFragment"
         tools:layout="@layout/fragment_home" />
-    <fragment
-        android:id="@+id/formFragment"
-        android:name="com.affinityapps.endeavor.ui.form.FormFragment"
-        android:label="FormFragment"
-        tools:layout="@layout/fragment_form" />
 
     <fragment
         android:id="@+id/impactFragment"

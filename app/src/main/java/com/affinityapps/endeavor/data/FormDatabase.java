@@ -9,7 +9,7 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
-@Database(entities = {Form.class}, version = 1, exportSchema = false)
+@Database(entities = {Form.class}, version = 2, exportSchema = false)
 public abstract class FormDatabase extends RoomDatabase {
 
     private static FormDatabase instance;
@@ -44,9 +44,9 @@ public abstract class FormDatabase extends RoomDatabase {
 
         @Override
         protected Void doInBackground(Void... voids) {
-            formDao.insert(new Form(1, "test", "test", "test", 1, 1.2, 1.3, 1.4));
-            formDao.insert(new Form(1, "test", "test", "test", 2, 1.2, 1.3, 1.4));
-            formDao.insert(new Form(1, "test", "test", "test", 3, 1.2, 1.3, 1.4));
+            formDao.insert(new Form("test", "test", "test", "3/234/234", 1.2, 1.3, 1.4));
+            formDao.insert(new Form("test", "test", "test", "234/234/234", 1.2, 1.3, 1.4));
+            formDao.insert(new Form("test", "test", "test", "345/324/23", 1.2, 1.3, 1.4));
             return null;
         }
     }

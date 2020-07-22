@@ -7,11 +7,6 @@
         android:title="@string/menu_home" />
 
     <item
-        android:id="@+id/formFragment"
-        android:icon="@drawable/ic_assignment_black_24dp"
-        android:title="@string/menu_form" />
-
-    <item
         android:id="@+id/impactFragment"
         android:icon="@drawable/ic_trending_up_black_24dp"
         android:title="@string/menu_impact" />

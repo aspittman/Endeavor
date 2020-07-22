@@ -15,7 +15,7 @@ public class Form {
 
     private String project;
 
-    private float date;
+    private String date;
 
     private double hours;
 
@@ -24,8 +24,7 @@ public class Form {
     private double purchases;
 
 
-    public Form(int id, String documentTitle, String organization, String project, float date, double hours, double miles, double purchases) {
-        this.id = id;
+    public Form(String documentTitle, String organization, String project, String date, double hours, double miles, double purchases) {
         this.documentTitle = documentTitle;
         this.organization = organization;
         this.project = project;
@@ -56,7 +55,7 @@ public class Form {
         return project;
     }
 
-    public float getDate() {
+    public String getDate() {
         return date;
     }
 

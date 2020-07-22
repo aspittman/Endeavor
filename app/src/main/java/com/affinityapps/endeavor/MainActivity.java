@@ -1,21 +1,25 @@
 package com.affinityapps.endeavor;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.NavigationUI;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
+import com.affinityapps.endeavor.ui.form.FormActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
 
+    public static final int ADD_FORM_REQUEST = 1;
     BottomNavigationView bottomNavigationView;
 
     @Override
@@ -61,19 +65,19 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
-//            case R.id.dark_option:
-//                //do something
-//                return true;
-            case R.id.switch_option:
+            case R.id.add_form_option:
+                Intent intent = new Intent(MainActivity.this, FormActivity.class);
+                startActivityForResult(intent, ADD_FORM_REQUEST);
+                return true;
+            case R.id.dark_switch_option:
                 //do switch
                 return true;
-//            case R.id.test_option:
-//                //do more
-//                return true;
+            case R.id.grid_switch_option:
+                //do more
+                return true;
 
             default:
                 return super.onOptionsItemSelected(item);
         }
     }
-
 }

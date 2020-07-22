@@ -2,9 +2,9 @@
     <string name="app_name">Endeavor</string>
 
 <!--AppBar Options-->
+    <string name="add_option">TestForMenu</string>
     <string name="dark_option">DarkMode</string>
-    <string name="view_option">GridView</string>
-    <string name="test_option">TestForMenu</string>
+    <string name="grid_option">GridView</string>
 
 <!--Bottom Navigation Menu Options-->
     <string name="menu_home">Home</string>
