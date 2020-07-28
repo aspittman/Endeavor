@@ -7,7 +7,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:context=".ui.form.FormActivity">
+        tools:context=".ui.master.FormActivity">
 
         <EditText
             android:id="@+id/edit_document_title"

@@ -9,9 +9,8 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.widget.RemoteViews;
 import android.widget.Toast;
-import com.affinityapps.endeavor.MainActivity;
+import com.affinityapps.endeavor.ui.master.MainActivity;
 import com.affinityapps.endeavor.R;
-import com.affinityapps.endeavor.Volunteer;
 
 public class VolunteerAppWidgetProvider extends AppWidgetProvider {
 

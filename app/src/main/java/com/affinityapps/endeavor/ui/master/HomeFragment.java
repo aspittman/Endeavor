@@ -1,4 +1,4 @@
-package com.affinityapps.endeavor.ui.home;
+package com.affinityapps.endeavor.ui.master;
 
 import android.content.Context;
 import android.content.Intent;
@@ -17,32 +17,36 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.affinityapps.endeavor.R;
-import com.affinityapps.endeavor.Volunteer;
-import com.affinityapps.endeavor.data.Form;
-import com.affinityapps.endeavor.data.FormViewModel;
+import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static android.app.Activity.RESULT_OK;
-import static com.affinityapps.endeavor.MainActivity.ADD_FORM_REQUEST;
-import static com.affinityapps.endeavor.ui.form.FormActivity.EXTRA_DATE;
-import static com.affinityapps.endeavor.ui.form.FormActivity.EXTRA_HOURS;
-import static com.affinityapps.endeavor.ui.form.FormActivity.EXTRA_MILES;
-import static com.affinityapps.endeavor.ui.form.FormActivity.EXTRA_ORGANIZATION;
-import static com.affinityapps.endeavor.ui.form.FormActivity.EXTRA_PROJECT;
-import static com.affinityapps.endeavor.ui.form.FormActivity.EXTRA_PURCHASES;
-import static com.affinityapps.endeavor.ui.form.FormActivity.EXTRA_TITLE;
+import static com.affinityapps.endeavor.ui.master.MainActivity.ADD_FORM_REQUEST;
+import static com.affinityapps.endeavor.ui.master.FormActivity.EXTRA_DATE;
+import static com.affinityapps.endeavor.ui.master.FormActivity.EXTRA_HOURS;
+import static com.affinityapps.endeavor.ui.master.FormActivity.EXTRA_MILES;
+import static com.affinityapps.endeavor.ui.master.FormActivity.EXTRA_ORGANIZATION;
+import static com.affinityapps.endeavor.ui.master.FormActivity.EXTRA_PROJECT;
+import static com.affinityapps.endeavor.ui.master.FormActivity.EXTRA_PURCHASES;
+import static com.affinityapps.endeavor.ui.master.FormActivity.EXTRA_TITLE;
 
 public class HomeFragment extends Fragment {
 
     private Context context;
     private Volunteer volunteer;
-    private FormViewModel formViewModel;
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager layoutManager;
     private VolunteerAdapter volunteerAdapter;
-    private ArrayList<Volunteer> volunteerArrayList;
+    private List<Volunteer> volunteerArrayList;
+
+    private FirebaseRecyclerAdapter adapter;
+    private StorageReference storageReference;
+    private DatabaseReference databaseReference;
 
     public HomeFragment() {
 
@@ -53,17 +57,8 @@ public class HomeFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_home, container, false);
 
-        formViewModel = new ViewModelProvider(this).get(FormViewModel.class);
-        formViewModel.getAllForms().observe(getViewLifecycleOwner(), new Observer<List<Form>>() {
-            @Override
-            public void onChanged(List<Form> forms) {
-                Toast.makeText(getActivity(), "This is a Database test", Toast.LENGTH_LONG).show();
-            }
-        });
-        volunteerArrayList = new ArrayList<>();
-        volunteerArrayList.add(new Volunteer("testTextMe!!!"));
-        volunteerArrayList.add(new Volunteer("testTextMe!!!"));
-        volunteerArrayList.add(new Volunteer("testTextMe!!!"));
+        storageReference = FirebaseStorage.getInstance().getReference("uploads");
+        databaseReference = FirebaseDatabase.getInstance().getReference("uploads");
 
         recyclerView = root.findViewById(R.id.home_fragment_recyclerview);
         recyclerView.setHasFixedSize(true);
@@ -71,8 +66,16 @@ public class HomeFragment extends Fragment {
         layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
 
-        volunteerAdapter = new VolunteerAdapter(context, volunteerArrayList);
+        volunteerAdapter = new VolunteerAdapter();
         recyclerView.setAdapter(volunteerAdapter);
+
+        formViewModel = new ViewModelProvider(this).get(FormViewModel.class);
+        formViewModel.getAllForms().observe(getViewLifecycleOwner(), new Observer<List<Form>>() {
+            @Override
+            public void onChanged(List<Form> forms) {
+                volunteerAdapter.setForms(forms);
+            }
+        });
 
         return root;
     }
@@ -90,9 +93,6 @@ public class HomeFragment extends Fragment {
             int hours = data.getIntExtra(EXTRA_HOURS, 0);
             int miles = data.getIntExtra(EXTRA_MILES, 0);
             int purchases = data.getIntExtra(EXTRA_PURCHASES, 0);
-
-            Form form = new Form(title, organization, project, date, hours, miles, purchases);
-            formViewModel.insert(form);
 
             Toast.makeText(getActivity(), "Form Saved", Toast.LENGTH_SHORT).show();
         } else {

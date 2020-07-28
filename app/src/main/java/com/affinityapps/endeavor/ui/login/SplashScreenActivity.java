@@ -1,10 +1,12 @@
-package com.affinityapps.endeavor;
+package com.affinityapps.endeavor.ui.login;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
+
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.affinityapps.endeavor.ui.master.MainActivity;
 
 public class SplashScreenActivity extends AppCompatActivity {
 
