@@ -6,20 +6,20 @@
         android:id="@+id/add_form_option"
         android:orderInCategory="1"
         android:title="@string/add_option"
-        android:icon="@drawable/ic_baseline_note_add_24"
+        android:icon="@drawable/ic_note_add"
         app:showAsAction="ifRoom"/>
 
     <item
         android:id="@+id/dark_switch_option"
         android:orderInCategory="2"
         android:title="@string/dark_option"
-        android:icon="@drawable/ic_baseline_brightness_4_24"
+        android:icon="@drawable/ic_brightness"
         app:showAsAction="ifRoom"/>
 
     <item
         android:id="@+id/grid_switch_option"
         android:orderInCategory="3"
         android:title="@string/grid_option"
-        android:icon="@drawable/ic_baseline_grid_on_24"
+        android:icon="@drawable/ic_translate"
         app:showAsAction="ifRoom"/>
 </menu>

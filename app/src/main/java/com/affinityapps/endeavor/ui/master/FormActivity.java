@@ -2,6 +2,7 @@ package com.affinityapps.endeavor.ui.master;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -9,78 +10,82 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModel;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.affinityapps.endeavor.databinding.ActivityFormBinding;
+import com.affinityapps.endeavor.ui.master.model.Master;
+import com.affinityapps.endeavor.ui.master.model.MasterViewModel;
+import com.firebase.client.Firebase;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class FormActivity extends AppCompatActivity {
 
-    public static final String EXTRA_TITLE = "title";
-    public static final String EXTRA_ORGANIZATION = "organization";
-    public static final String EXTRA_PROJECT = "project";
-    public static final String EXTRA_DATE = "date";
-    public static final String EXTRA_HOURS = "hours";
-    public static final String EXTRA_MILES = "miles";
-    public static final String EXTRA_PURCHASES = "purchases";
+    public static final String DATABASE_PATH = "user_forms";
+    private DatabaseReference databaseForms;
 
-    private EditText editDocumentTitle;
+    private EditText editTitle;
     private EditText editOrganization;
     private EditText editProject;
     private EditText editDate;
     private EditText editHours;
     private EditText editMiles;
     private EditText editPurchases;
-    private Button saveFormButton;
-    private ActivityFormBinding binding;
 
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = ActivityFormBinding.inflate(getLayoutInflater());
+
+        ActivityFormBinding binding = ActivityFormBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
 
-        editDocumentTitle = binding.editDocumentTitle;
+        databaseForms = FirebaseDatabase.getInstance().getReference(DATABASE_PATH);
+        Button saveFormButton = binding.saveNoteButton;
+        editTitle = binding.editDocumentTitle;
         editOrganization = binding.editOrganization;
         editProject = binding.editProject;
         editDate = binding.editDate;
         editHours = binding.editHours;
         editMiles = binding.editMiles;
         editPurchases = binding.editPurchases;
-        saveFormButton = binding.saveNoteButton;
 
         saveFormButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                saveForm();
+                sendToDatabase();
             }
         });
     }
 
-    private void saveForm() {
-        String documentTitle = editDocumentTitle.getText().toString();
-        String organization = editOrganization.getText().toString();
-        String project = editProject.getText().toString();
-        String date = editDate.getText().toString();
-        double hours = editHours.getInputType();
-        double miles = editMiles.getInputType();
-        double purchases = editPurchases.getInputType();
+    private void sendToDatabase() {
+        String title = editTitle.getText().toString().trim();
+        String organization = editOrganization.getText().toString().trim();
+        String project = editProject.getText().toString().trim();
+        String date = editDate.getText().toString().trim();
+        String hours = editHours.getText().toString().trim();
+        String miles = editMiles.getText().toString().trim();
+        String purchases = editPurchases.getText().toString().trim();
 
-        if(documentTitle.trim().isEmpty() && organization.trim().isEmpty() && project.trim().isEmpty()) {
-            Toast.makeText(this, "Please insert Title, Organization, or Project", Toast.LENGTH_SHORT).show();
-            return;
+        if (!TextUtils.isEmpty(title)) {
+            String id = databaseForms.push().getKey();
+            Master master = new Master(id, title, organization, project, date, hours, miles, purchases);
+
+            assert id != null;
+            databaseForms.child(id).setValue(master);
+
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
+        } else {
+            Toast.makeText(this, "Please insert Title", Toast.LENGTH_SHORT).show();
         }
-
-        Intent data = new Intent();
-        data.putExtra(EXTRA_TITLE, documentTitle);
-        data.putExtra(EXTRA_ORGANIZATION, organization);
-        data.putExtra(EXTRA_PROJECT, project);
-        data.putExtra(EXTRA_DATE, date);
-        data.putExtra(EXTRA_HOURS, hours);
-        data.putExtra(EXTRA_MILES, miles);
-        data.putExtra(EXTRA_PURCHASES, purchases);
-
-        setResult(RESULT_OK, data);
-        finish();
     }
 }
+

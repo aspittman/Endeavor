@@ -11,19 +11,25 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.affinityapps.endeavor.R;
+import com.affinityapps.endeavor.databinding.ActivityMainBinding;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
 
     public static final int ADD_FORM_REQUEST = 1;
-    BottomNavigationView bottomNavigationView;
+    private ActivityMainBinding binding;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        binding = ActivityMainBinding.inflate(getLayoutInflater());
+        View view = binding.getRoot();
+        setContentView(view);
+
 
         setUpNavigation();
         //the idea behind this app is simple
@@ -44,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void setUpNavigation() {
-        bottomNavigationView = findViewById(R.id.bottom_nav_view);
+        BottomNavigationView bottomNavigationView = binding.bottomNavView;
 
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
 

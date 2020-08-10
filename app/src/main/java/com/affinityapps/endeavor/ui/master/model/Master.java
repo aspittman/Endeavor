@@ -1,14 +1,15 @@
-package com.affinityapps.endeavor.ui.master;
+package com.affinityapps.endeavor.ui.master.model;
 
-public class Volunteer {
+public class Master {
 
-    private String documentTitle, organization, project, date;
-    private double hours, miles, purchases;
+    private String id, documentTitle, organization, project, date, hours, miles, purchases;
 
 
-    public Volunteer() {};
+    public Master() {
+    }
 
-    public Volunteer(String documentTitle, String organization, String project, String date, double hours, double miles, double purchases) {
+    public Master(String id, String documentTitle, String organization, String project, String date, String hours, String miles, String purchases) {
+        this.id = id;
         this.documentTitle = documentTitle;
         this.organization = organization;
         this.project = project;
@@ -18,6 +19,10 @@ public class Volunteer {
         this.purchases = purchases;
     }
 
+
+    public String getId() { return id; }
+
+    public void setId(String id) { this.id = id; }
 
     public String getDocumentTitle() {
         return documentTitle;
@@ -51,27 +56,27 @@ public class Volunteer {
         this.date = date;
     }
 
-    public double getHours() {
+    public String getHours() {
         return hours;
     }
 
-    public void setHours(double hours) {
+    public void setHours(String hours) {
         this.hours = hours;
     }
 
-    public double getMiles() {
+    public String getMiles() {
         return miles;
     }
 
-    public void setMiles(double miles) {
+    public void setMiles(String miles) {
         this.miles = miles;
     }
 
-    public double getPurchases() {
+    public String getPurchases() {
         return purchases;
     }
 
-    public void setPurchases(double purchases) {
+    public void setPurchases(String purchases) {
         this.purchases = purchases;
     }
 }

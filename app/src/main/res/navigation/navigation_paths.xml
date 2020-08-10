@@ -12,6 +12,12 @@
         tools:layout="@layout/fragment_home" />
 
     <fragment
+        android:id="@+id/statisticsFragment"
+        android:name="com.affinityapps.endeavor.ui.statistics.StatisticsFragment"
+        android:label="ImpactFragment"
+        tools:layout="@layout/fragment_statistics" />
+
+    <fragment
         android:id="@+id/impactFragment"
         android:name="com.affinityapps.endeavor.ui.impact.ImpactFragment"
         android:label="ImpactFragment"
