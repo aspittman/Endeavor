@@ -66,13 +66,13 @@ public class FormActivity extends AppCompatActivity {
     }
 
     private void sendToDatabase() {
-        String title = editTitle.getText().toString().trim();
-        String organization = editOrganization.getText().toString().trim();
-        String project = editProject.getText().toString().trim();
-        String date = editDate.getText().toString().trim();
-        String hours = editHours.getText().toString().trim();
-        String miles = editMiles.getText().toString().trim();
-        String purchases = editPurchases.getText().toString().trim();
+        String title = editTitle.getText().toString();
+        String organization = editOrganization.getText().toString();
+        String project = editProject.getText().toString();
+        String date = editDate.getText().toString();
+        String hours = editHours.getText().toString();
+        String miles = editMiles.getText().toString();
+        String purchases = editPurchases.getText().toString();
 
         if (!TextUtils.isEmpty(title)) {
             String id = databaseForms.push().getKey();
@@ -80,6 +80,7 @@ public class FormActivity extends AppCompatActivity {
 
             assert id != null;
             databaseForms.child(id).setValue(master);
+            Toast.makeText(this, "Operation Successful", Toast.LENGTH_SHORT).show();
 
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
