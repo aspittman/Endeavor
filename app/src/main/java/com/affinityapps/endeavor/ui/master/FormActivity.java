@@ -3,31 +3,30 @@ package com.affinityapps.endeavor.ui.master;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModel;
-import androidx.lifecycle.ViewModelProvider;
 
 import com.affinityapps.endeavor.databinding.ActivityFormBinding;
 import com.affinityapps.endeavor.ui.master.model.Master;
-import com.affinityapps.endeavor.ui.master.model.MasterViewModel;
-import com.firebase.client.Firebase;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 public class FormActivity extends AppCompatActivity {
 
     public static final String DATABASE_PATH = "user_forms";
+    public static final String TAG = FormActivity.class.getSimpleName();
     private DatabaseReference databaseForms;
 
     private EditText editTitle;
@@ -66,20 +65,33 @@ public class FormActivity extends AppCompatActivity {
     }
 
     private void sendToDatabase() {
-        String title = editTitle.getText().toString();
-        String organization = editOrganization.getText().toString();
-        String project = editProject.getText().toString();
-        String date = editDate.getText().toString();
-        String hours = editHours.getText().toString();
-        String miles = editMiles.getText().toString();
-        String purchases = editPurchases.getText().toString();
+        String title = editTitle.getText().toString().trim();
+        String organization = editOrganization.getText().toString().trim();
+        String project = editProject.getText().toString().trim();
+        String date = editDate.getText().toString().trim();
+        String hours = editHours.getText().toString().trim();
+        String miles = editMiles.getText().toString().trim();
+        String purchases = editPurchases.getText().toString().trim();
 
         if (!TextUtils.isEmpty(title)) {
             String id = databaseForms.push().getKey();
             Master master = new Master(id, title, organization, project, date, hours, miles, purchases);
 
             assert id != null;
-            databaseForms.child(id).setValue(master);
+            databaseForms.child(id).setValue(master).addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    if (task.isSuccessful())
+                        Log.d(TAG, "onComplete: ");
+                    else
+                        Log.d(TAG, "no onComplete: ");
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Log.d(TAG, "onFailure: " + e.getMessage());
+                }
+            });
             Toast.makeText(this, "Operation Successful", Toast.LENGTH_SHORT).show();
 
             Intent intent = new Intent(this, MainActivity.class);
