@@ -7,12 +7,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -84,6 +84,10 @@ public class HomeFragment extends Fragment {
                     homeFragmentArrayList.add(master);
                 }
                 homeAdapter = new HomeAdapter(context, homeFragmentArrayList);
+                ItemTouchHelper.Callback callback = new HomeItemTouchHelper(homeAdapter);
+                ItemTouchHelper itemTouchHelper = new ItemTouchHelper(callback);
+                homeAdapter.setTouchHelper(itemTouchHelper);
+                itemTouchHelper.attachToRecyclerView(recyclerView);
                 recyclerView.setAdapter(homeAdapter);
             }
 

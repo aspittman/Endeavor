@@ -97,7 +97,7 @@ public class FormActivity extends AppCompatActivity {
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
         } else {
-            Toast.makeText(this, "Please insert Title", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Please insert Document Title", Toast.LENGTH_SHORT).show();
         }
     }
 }

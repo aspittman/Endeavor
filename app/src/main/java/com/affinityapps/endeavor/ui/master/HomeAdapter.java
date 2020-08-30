@@ -1,39 +1,56 @@
 package com.affinityapps.endeavor.ui.master;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
+import android.view.GestureDetector;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.affinityapps.endeavor.R;
 import com.affinityapps.endeavor.databinding.VolunteerListItemsBinding;
 import com.affinityapps.endeavor.ui.master.model.Master;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeFragmentViewHolder> {
+public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeFragmentViewHolder>
+        implements ItemTouchHelperAdapter {
 
     private Context context;
     private List<Master> homeFragmentArrayList;
-    private HomeFragmentClickListener homeFragmentClickListener;
-
-
-    public interface HomeFragmentClickListener {
-        void onHomeFragmentClick(int position);
-    }
+    private ItemTouchHelper itemTouchHelper;
+    private HomeFragmentClickListener listener;
 
     public HomeAdapter(Context context, List<Master> homeFragmentArrayList) {
         this.context = context;
         this.homeFragmentArrayList = homeFragmentArrayList;
     }
 
+    @Override
+    public void onItemMove(int fromPosition, int toPosition) {
+        Master fromMaster = homeFragmentArrayList.get(fromPosition);
+        homeFragmentArrayList.remove(fromMaster);
+        homeFragmentArrayList.add(toPosition, fromMaster);
+        notifyItemMoved(fromPosition, toPosition);
+    }
+
+    @Override
+    public void onItemSwiped(int position) {
+        homeFragmentArrayList.remove(position);
+        notifyItemRemoved(position);
+    }
+
+    public void setTouchHelper(ItemTouchHelper itemTouchHelper) {
+        this.itemTouchHelper = itemTouchHelper;
+    }
+
     public void setHomeFragmentClickListener(HomeFragmentClickListener listener) {
-        homeFragmentClickListener = listener;
+        this.listener = listener;
     }
 
     public void setForms(List<Master> volunteerArrayList) {
@@ -41,48 +58,11 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeFragmentVi
         notifyDataSetChanged();
     }
 
-    public static class HomeFragmentViewHolder extends RecyclerView.ViewHolder {
-
-        VolunteerListItemsBinding binding;
-        TextView volunteerTitle;
-        TextView volunteerOrganization;
-        TextView volunteerProject;
-        TextView volunteerDate;
-        TextView volunteerHours;
-        TextView volunteerMiles;
-        TextView volunteerPurchases;
-
-        public HomeFragmentViewHolder(VolunteerListItemsBinding binding, final HomeFragmentClickListener listener) {
-            super(binding.getRoot());
-            this.binding = binding;
-
-            volunteerTitle = binding.volunteerTitle;
-            volunteerOrganization = binding.volunteerOrganization;
-            volunteerProject = binding.volunteerProject;
-            volunteerDate = binding.volunteerDate;
-            volunteerHours = binding.volunteerHours;
-            volunteerMiles = binding.volunteerMiles;
-            volunteerPurchases = binding.volunteerPurchases;
-
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (listener != null) {
-                        int position = getAdapterPosition();
-                        if (position != RecyclerView.NO_POSITION) {
-                            listener.onHomeFragmentClick(position);
-                        }
-                    }
-                }
-            });
-        }
-    }
-
     @NonNull
     @Override
     public HomeFragmentViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         return new HomeFragmentViewHolder(VolunteerListItemsBinding.inflate(LayoutInflater.
-                from(parent.getContext()), parent, false), homeFragmentClickListener);
+                from(parent.getContext()), parent, false));
     }
 
     @Override
@@ -90,17 +70,78 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeFragmentVi
         Master master = homeFragmentArrayList.get(position);
 
         holder.binding.volunteerTitle.setText(master.getDocumentTitle());
-        holder.binding.volunteerOrganization.setText(master.getOrganization());
-        holder.binding.volunteerProject.setText(master.getProject());
         holder.binding.volunteerDate.setText(master.getDate());
-        holder.binding.volunteerHours.setText(String.valueOf(master.getHours()));
-        holder.binding.volunteerMiles.setText(String.valueOf(master.getMiles()));
-        holder.binding.volunteerPurchases.setText(String.valueOf(master.getPurchases()));
     }
 
     @Override
     public int getItemCount() {
         return homeFragmentArrayList.size();
+    }
+
+    public interface HomeFragmentClickListener {
+        void onHomeFragmentClick(int position);
+    }
+
+    public class HomeFragmentViewHolder extends RecyclerView.ViewHolder
+            implements View.OnTouchListener, GestureDetector.OnGestureListener {
+
+        VolunteerListItemsBinding binding;
+        GestureDetector gestureDetector;
+        TextView volunteerTitle;
+        TextView volunteerDate;
+
+        public HomeFragmentViewHolder(VolunteerListItemsBinding binding) {
+            super(binding.getRoot());
+            this.binding = binding;
+
+            volunteerTitle = binding.volunteerTitle;
+            volunteerDate = binding.volunteerDate;
+            itemView.setOnTouchListener(this);
+            gestureDetector = new GestureDetector(binding.getRoot().getContext(), this);
+        }
+
+        @Override
+        public boolean onDown(MotionEvent motionEvent) {
+            return false;
+        }
+
+        @Override
+        public void onShowPress(MotionEvent motionEvent) {
+
+        }
+
+        @Override
+        public boolean onSingleTapUp(MotionEvent motionEvent) {
+            if (listener != null) {
+                int position = getAdapterPosition();
+                if (position != RecyclerView.NO_POSITION) {
+                    listener.onHomeFragmentClick(position);
+                }
+            }
+            return false;
+        }
+
+        @Override
+        public boolean onScroll(MotionEvent motionEvent, MotionEvent motionEvent1, float v, float v1) {
+            return false;
+        }
+
+        @Override
+        public void onLongPress(MotionEvent motionEvent) {
+            itemTouchHelper.startDrag(this);
+        }
+
+        @Override
+        public boolean onFling(MotionEvent motionEvent, MotionEvent motionEvent1, float v, float v1) {
+            return false;
+        }
+
+        @SuppressLint("ClickableViewAccessibility")
+        @Override
+        public boolean onTouch(View view, MotionEvent motionEvent) {
+            gestureDetector.onTouchEvent(motionEvent);
+            return true;
+        }
     }
 }
 
