@@ -26,10 +26,24 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeFragmentVi
     private ItemTouchHelper itemTouchHelper;
     private HomeFragmentClickListener listener;
 
+    public interface HomeFragmentClickListener {
+        void onHomeFragmentClick(int position);
+    }
+
+    public void setHomeFragmentClickListener(HomeFragmentClickListener listener) {
+        this.listener = listener;
+    }
+
+    public void setForms(List<Master> volunteerArrayList) {
+        this.homeFragmentArrayList = volunteerArrayList;
+        notifyDataSetChanged();
+    }
+
     public HomeAdapter(Context context, List<Master> homeFragmentArrayList) {
         this.context = context;
         this.homeFragmentArrayList = homeFragmentArrayList;
     }
+
 
     @Override
     public void onItemMove(int fromPosition, int toPosition) {
@@ -49,14 +63,6 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeFragmentVi
         this.itemTouchHelper = itemTouchHelper;
     }
 
-    public void setHomeFragmentClickListener(HomeFragmentClickListener listener) {
-        this.listener = listener;
-    }
-
-    public void setForms(List<Master> volunteerArrayList) {
-        this.homeFragmentArrayList = volunteerArrayList;
-        notifyDataSetChanged();
-    }
 
     @NonNull
     @Override
@@ -78,9 +84,6 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeFragmentVi
         return homeFragmentArrayList.size();
     }
 
-    public interface HomeFragmentClickListener {
-        void onHomeFragmentClick(int position);
-    }
 
     public class HomeFragmentViewHolder extends RecyclerView.ViewHolder
             implements View.OnTouchListener, GestureDetector.OnGestureListener {

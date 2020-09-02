@@ -21,7 +21,13 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import java.util.HashMap;
+import static com.affinityapps.endeavor.ui.master.HomeFragment.EXTRA_DATE;
+import static com.affinityapps.endeavor.ui.master.HomeFragment.EXTRA_HOURS;
+import static com.affinityapps.endeavor.ui.master.HomeFragment.EXTRA_MILES;
+import static com.affinityapps.endeavor.ui.master.HomeFragment.EXTRA_ORGANIZATION;
+import static com.affinityapps.endeavor.ui.master.HomeFragment.EXTRA_PROJECT;
+import static com.affinityapps.endeavor.ui.master.HomeFragment.EXTRA_PURCHASES;
+import static com.affinityapps.endeavor.ui.master.HomeFragment.EXTRA_TITLE;
 
 public class FormActivity extends AppCompatActivity {
 
@@ -55,6 +61,24 @@ public class FormActivity extends AppCompatActivity {
         editHours = binding.editHours;
         editMiles = binding.editMiles;
         editPurchases = binding.editPurchases;
+
+        Intent intent = getIntent();
+
+        String title = intent.getStringExtra(EXTRA_TITLE);
+        String organization = intent.getStringExtra(EXTRA_ORGANIZATION);
+        String project = intent.getStringExtra(EXTRA_PROJECT);
+        String date = intent.getStringExtra(EXTRA_DATE);
+        String hours = intent.getStringExtra(EXTRA_HOURS);
+        String miles = intent.getStringExtra(EXTRA_MILES);
+        String purchases = intent.getStringExtra(EXTRA_PURCHASES);
+
+        editTitle.setText(title);
+        editOrganization.setText(organization);
+        editProject.setText(project);
+        editDate.setText(date);
+        editHours.setText(hours);
+        editMiles.setText(miles);
+        editPurchases.setText(purchases);
 
         saveFormButton.setOnClickListener(new View.OnClickListener() {
             @Override

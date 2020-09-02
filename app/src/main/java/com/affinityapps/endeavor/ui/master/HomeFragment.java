@@ -36,6 +36,15 @@ import static com.affinityapps.endeavor.ui.master.MainActivity.ADD_FORM_REQUEST;
 public class HomeFragment extends Fragment {
 
     public static final String TAG = HomeFragment.class.getSimpleName();
+    public static final String EXTRA_ID = "dataId";
+    public static final String EXTRA_TITLE = "dataTitle";
+    public static final String EXTRA_ORGANIZATION = "dataOrganization";
+    public static final String EXTRA_PROJECT = "dataProject";
+    public static final String EXTRA_DATE = "dataDate";
+    public static final String EXTRA_HOURS = "dataHours";
+    public static final String EXTRA_MILES = "dataMiles";
+    public static final String EXTRA_PURCHASES = "dataPurchases";
+
     private DatabaseReference databaseForms;
     private Context context;
     private Master volunteer;
@@ -84,11 +93,29 @@ public class HomeFragment extends Fragment {
                     homeFragmentArrayList.add(master);
                 }
                 homeAdapter = new HomeAdapter(context, homeFragmentArrayList);
+                recyclerView.setAdapter(homeAdapter);
+                homeAdapter.setHomeFragmentClickListener(new HomeAdapter.HomeFragmentClickListener() {
+                    @Override
+                    public void onHomeFragmentClick(int position) {
+                        Intent intent = new Intent(getActivity(), FormActivity.class);
+                        Master master = homeFragmentArrayList.get(position);
+
+                        intent.putExtra(EXTRA_ID, master.getId());
+                        intent.putExtra(EXTRA_TITLE, master.getDocumentTitle());
+                        intent.putExtra(EXTRA_ORGANIZATION, master.getOrganization());
+                        intent.putExtra(EXTRA_PROJECT, master.getProject());
+                        intent.putExtra(EXTRA_DATE, master.getDate());
+                        intent.putExtra(EXTRA_HOURS, master.getHours());
+                        intent.putExtra(EXTRA_MILES, master.getMiles());
+                        intent.putExtra(EXTRA_PURCHASES, master.getPurchases());
+
+                        startActivity(intent);
+                    }
+                });
                 ItemTouchHelper.Callback callback = new HomeItemTouchHelper(homeAdapter);
                 ItemTouchHelper itemTouchHelper = new ItemTouchHelper(callback);
                 homeAdapter.setTouchHelper(itemTouchHelper);
                 itemTouchHelper.attachToRecyclerView(recyclerView);
-                recyclerView.setAdapter(homeAdapter);
             }
 
             @Override
