@@ -54,6 +54,7 @@ public class FormActivity extends AppCompatActivity {
 
         databaseForms = FirebaseDatabase.getInstance().getReference(DATABASE_PATH);
         Button saveFormButton = binding.saveNoteButton;
+        Button updateFormButton = binding.updateNoteButton;
         editTitle = binding.editDocumentTitle;
         editOrganization = binding.editOrganization;
         editProject = binding.editProject;
@@ -84,6 +85,12 @@ public class FormActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 sendToDatabase();
+            }
+        });
+        updateFormButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                updateDatabase();
             }
         });
     }
@@ -123,6 +130,10 @@ public class FormActivity extends AppCompatActivity {
         } else {
             Toast.makeText(this, "Please insert Document Title", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    private void updateDatabase() {
+        //update goes here
     }
 }
 

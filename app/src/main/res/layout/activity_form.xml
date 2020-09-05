@@ -110,5 +110,15 @@
             android:background="@color/LightAccentGreen"
             android:text="@string/save_option" />
 
+        <Button
+            android:id="@+id/update_note_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/save_note_button"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="64dp"
+            android:layout_marginEnd="8dp"
+            android:background="@color/LightAccentGreen"
+            android:text="@string/update_option" />
     </RelativeLayout>
 </ScrollView>
