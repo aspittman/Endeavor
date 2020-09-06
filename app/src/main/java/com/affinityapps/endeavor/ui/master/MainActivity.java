@@ -70,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.add_form_option:
-                Intent intent = new Intent(MainActivity.this, FormActivity.class);
+                Intent intent = new Intent(MainActivity.this, AddFormActivity.class);
                 startActivityForResult(intent, ADD_FORM_REQUEST);
                 return true;
             case R.id.dark_switch_option:

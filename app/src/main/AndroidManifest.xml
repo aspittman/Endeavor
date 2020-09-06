@@ -31,7 +31,11 @@
         </activity>
 
         <activity
-            android:name=".ui.master.FormActivity"
+            android:name=".ui.master.AddFormActivity"
+            android:parentActivityName=".ui.master.MainActivity" />
+
+        <activity
+            android:name=".ui.master.UpdateFormActivity"
             android:parentActivityName=".ui.master.MainActivity" />
 
         <receiver android:name=".widget.VolunteerAppWidgetProvider">

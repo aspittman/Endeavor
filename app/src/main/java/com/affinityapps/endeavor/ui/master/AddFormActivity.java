@@ -13,7 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.affinityapps.endeavor.databinding.ActivityFormBinding;
+import com.affinityapps.endeavor.databinding.ActivityAddFormBinding;
 import com.affinityapps.endeavor.ui.master.model.Master;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -29,10 +29,10 @@ import static com.affinityapps.endeavor.ui.master.HomeFragment.EXTRA_PROJECT;
 import static com.affinityapps.endeavor.ui.master.HomeFragment.EXTRA_PURCHASES;
 import static com.affinityapps.endeavor.ui.master.HomeFragment.EXTRA_TITLE;
 
-public class FormActivity extends AppCompatActivity {
+public class AddFormActivity extends AppCompatActivity {
 
     public static final String DATABASE_PATH = "user_forms";
-    public static final String TAG = FormActivity.class.getSimpleName();
+    public static final String TAG = AddFormActivity.class.getSimpleName();
     private DatabaseReference databaseForms;
 
     private EditText editTitle;
@@ -48,13 +48,12 @@ public class FormActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        ActivityFormBinding binding = ActivityFormBinding.inflate(getLayoutInflater());
+        ActivityAddFormBinding binding = ActivityAddFormBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
 
         databaseForms = FirebaseDatabase.getInstance().getReference(DATABASE_PATH);
         Button saveFormButton = binding.saveNoteButton;
-        Button updateFormButton = binding.updateNoteButton;
         editTitle = binding.editDocumentTitle;
         editOrganization = binding.editOrganization;
         editProject = binding.editProject;
@@ -85,12 +84,6 @@ public class FormActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 sendToDatabase();
-            }
-        });
-        updateFormButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                updateDatabase();
             }
         });
     }
@@ -130,10 +123,6 @@ public class FormActivity extends AppCompatActivity {
         } else {
             Toast.makeText(this, "Please insert Document Title", Toast.LENGTH_SHORT).show();
         }
-    }
-
-    private void updateDatabase() {
-        //update goes here
     }
 }
 

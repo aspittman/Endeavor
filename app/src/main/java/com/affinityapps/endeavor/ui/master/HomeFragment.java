@@ -29,7 +29,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static android.app.Activity.RESULT_OK;
-import static com.affinityapps.endeavor.ui.master.FormActivity.DATABASE_PATH;
+import static com.affinityapps.endeavor.ui.master.AddFormActivity.DATABASE_PATH;
 import static com.affinityapps.endeavor.ui.master.MainActivity.ADD_FORM_REQUEST;
 
 
@@ -97,7 +97,7 @@ public class HomeFragment extends Fragment {
                 homeAdapter.setHomeFragmentClickListener(new HomeAdapter.HomeFragmentClickListener() {
                     @Override
                     public void onHomeFragmentClick(int position) {
-                        Intent intent = new Intent(getActivity(), FormActivity.class);
+                        Intent intent = new Intent(getActivity(), UpdateFormActivity.class);
                         Master master = homeFragmentArrayList.get(position);
 
                         intent.putExtra(EXTRA_ID, master.getId());
