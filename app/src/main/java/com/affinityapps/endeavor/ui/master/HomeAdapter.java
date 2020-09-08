@@ -15,35 +15,28 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.affinityapps.endeavor.databinding.VolunteerListItemsBinding;
 import com.affinityapps.endeavor.ui.master.model.Master;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.List;
 
 public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeFragmentViewHolder>
         implements ItemTouchHelperAdapter {
 
+    public static final String DATABASE_PATH = "user_forms";
     private Context context;
     private List<Master> homeFragmentArrayList;
     private ItemTouchHelper itemTouchHelper;
     private HomeFragmentClickListener listener;
-
-    public interface HomeFragmentClickListener {
-        void onHomeFragmentClick(int position);
-    }
-
-    public void setHomeFragmentClickListener(HomeFragmentClickListener listener) {
-        this.listener = listener;
-    }
-
-    public void setForms(List<Master> volunteerArrayList) {
-        this.homeFragmentArrayList = volunteerArrayList;
-        notifyDataSetChanged();
-    }
 
     public HomeAdapter(Context context, List<Master> homeFragmentArrayList) {
         this.context = context;
         this.homeFragmentArrayList = homeFragmentArrayList;
     }
 
+    public void setHomeFragmentClickListener(HomeFragmentClickListener listener) {
+        this.listener = listener;
+    }
 
     @Override
     public void onItemMove(int fromPosition, int toPosition) {
@@ -55,14 +48,15 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeFragmentVi
 
     @Override
     public void onItemSwiped(int position) {
-        homeFragmentArrayList.remove(position);
+        Master master = homeFragmentArrayList.get(position);
+        DatabaseReference databaseForms = FirebaseDatabase.getInstance().getReference(DATABASE_PATH).child(master.getId());
+        databaseForms.removeValue();
         notifyItemRemoved(position);
     }
 
     public void setTouchHelper(ItemTouchHelper itemTouchHelper) {
         this.itemTouchHelper = itemTouchHelper;
     }
-
 
     @NonNull
     @Override
@@ -84,6 +78,9 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeFragmentVi
         return homeFragmentArrayList.size();
     }
 
+    public interface HomeFragmentClickListener {
+        void onHomeFragmentClick(int position);
+    }
 
     public class HomeFragmentViewHolder extends RecyclerView.ViewHolder
             implements View.OnTouchListener, GestureDetector.OnGestureListener {
