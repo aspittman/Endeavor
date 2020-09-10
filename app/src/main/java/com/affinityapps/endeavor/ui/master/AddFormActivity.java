@@ -14,20 +14,19 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.affinityapps.endeavor.databinding.ActivityAddFormBinding;
-import com.affinityapps.endeavor.ui.master.model.Master;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import static com.affinityapps.endeavor.ui.master.HomeFragment.EXTRA_DATE;
-import static com.affinityapps.endeavor.ui.master.HomeFragment.EXTRA_HOURS;
-import static com.affinityapps.endeavor.ui.master.HomeFragment.EXTRA_MILES;
-import static com.affinityapps.endeavor.ui.master.HomeFragment.EXTRA_ORGANIZATION;
-import static com.affinityapps.endeavor.ui.master.HomeFragment.EXTRA_PROJECT;
-import static com.affinityapps.endeavor.ui.master.HomeFragment.EXTRA_PURCHASES;
-import static com.affinityapps.endeavor.ui.master.HomeFragment.EXTRA_TITLE;
+import static com.affinityapps.endeavor.ui.home.HomeFragment.EXTRA_DATE;
+import static com.affinityapps.endeavor.ui.home.HomeFragment.EXTRA_HOURS;
+import static com.affinityapps.endeavor.ui.home.HomeFragment.EXTRA_MILES;
+import static com.affinityapps.endeavor.ui.home.HomeFragment.EXTRA_ORGANIZATION;
+import static com.affinityapps.endeavor.ui.home.HomeFragment.EXTRA_PROJECT;
+import static com.affinityapps.endeavor.ui.home.HomeFragment.EXTRA_PURCHASES;
+import static com.affinityapps.endeavor.ui.home.HomeFragment.EXTRA_TITLE;
 
 public class AddFormActivity extends AppCompatActivity {
 

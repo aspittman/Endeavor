@@ -10,16 +10,16 @@
         app:showAsAction="ifRoom"/>
 
     <item
-        android:id="@+id/dark_switch_option"
+        android:id="@+id/take_screenshot_option"
         android:orderInCategory="2"
-        android:title="@string/dark_option"
-        android:icon="@drawable/ic_brightness"
+        android:title="@string/screenshot_option"
+        android:icon="@drawable/ic_take_screenshot"
         app:showAsAction="ifRoom"/>
 
     <item
-        android:id="@+id/grid_switch_option"
+        android:id="@+id/dark_switch_option"
         android:orderInCategory="3"
-        android:title="@string/grid_option"
-        android:icon="@drawable/ic_translate"
+        android:title="@string/dark_option"
+        android:icon="@drawable/ic_brightness"
         app:showAsAction="ifRoom"/>
 </menu>

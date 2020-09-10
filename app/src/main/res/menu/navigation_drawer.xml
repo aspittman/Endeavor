@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/homeFragment"
+        android:icon="@drawable/ic_home"
+        android:title="@string/menu_home"
+        app:showAsAction="ifRoom"/>
+
+    <item
+        android:id="@+id/statisticsFragment"
+        android:icon="@drawable/ic_bar_chart"
+        android:title="@string/menu_statistics"
+        app:showAsAction="ifRoom"/>
+
+    <item
+        android:id="@+id/opportunitiesFragment"
+        android:icon="@drawable/ic_opportunities"
+        android:title="@string/menu_impact"
+        app:showAsAction="ifRoom"/>
+
+    <item
+        android:id="@+id/languageFragment"
+        android:icon="@drawable/ic_translate"
+        android:title="@string/menu_impact"
+        app:showAsAction="ifRoom"/>
+
+    <item
+        android:id="@+id/impactFragment"
+        android:icon="@drawable/ic_impact"
+        android:title="@string/menu_impact"
+        app:showAsAction="ifRoom"/>
+
+    <item
+        android:id="@+id/aboutFragment"
+        android:icon="@drawable/ic_about"
+        android:title="@string/menu_impact"
+        app:showAsAction="ifRoom"/>
+</menu>

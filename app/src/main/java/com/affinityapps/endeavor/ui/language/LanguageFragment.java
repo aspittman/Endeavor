@@ -1,4 +1,4 @@
-package com.affinityapps.endeavor.ui.statistics;
+package com.affinityapps.endeavor.ui.language;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -12,14 +12,15 @@ import androidx.fragment.app.Fragment;
 
 import com.affinityapps.endeavor.R;
 
-public class StatisticsFragment extends Fragment {
+public class LanguageFragment extends Fragment {
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View root = inflater.inflate(R.layout.fragment_impact, container, false);
 
-        View root = inflater.inflate(R.layout.fragment_statistics, container, false);
-
+        TextView textView = root.findViewById(R.id.text_impact);
+        textView.setText("This is a test of the about section");
         return root;
     }
 }

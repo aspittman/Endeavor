@@ -1,11 +1,5 @@
 package com.affinityapps.endeavor.ui.master;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-import androidx.navigation.ui.NavigationUI;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -13,49 +7,44 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
+import androidx.appcompat.widget.Toolbar;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
+import androidx.navigation.ui.AppBarConfiguration;
+import androidx.navigation.ui.NavigationUI;
+
 import com.affinityapps.endeavor.R;
 import com.affinityapps.endeavor.databinding.ActivityMainBinding;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.navigation.NavigationView;
 
 public class MainActivity extends AppCompatActivity {
 
     public static final int ADD_FORM_REQUEST = 1;
-    private ActivityMainBinding binding;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = ActivityMainBinding.inflate(getLayoutInflater());
+        ActivityMainBinding binding = ActivityMainBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
 
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
-        setUpNavigation();
-        //the idea behind this app is simple
-        //do the same thing that's on google play but better
-        //starting with code to put a nav view on bottom (I think that's what it's called)
-        //maybe give it better material design as well to make it less dreary looking
-        //one review said "I uninstalled. I need an all-in-one app which logs hours, miles, and purchases.
-        //There doesn't seem to be an app that does it all. I did like that you can separate out different
-        //projects you are working on. The picture option wasn't working as well. As an adult volunteer,
-        //I need time, miles and purchases for tax purposes. If you can add in the missing pieces to make
-        //a wrap around tracker for volunteering services, I'll happily reinstall.
+        DrawerLayout drawer = binding.drawerLayout;
+        NavigationView navigationView = binding.navView;
 
-        //The screens needed are one for filling out the forms
-        //Most likely a home screen for displaying all the work that's been done
-        //Probably another for statistics or something of the like
-        //That's mostly it probably wouldn't hurt if I made a screen for settings or something
-        //Also add another screen for seeing one's economic impact for the volunteer work they do
-    }
-
-    public void setUpNavigation() {
-        BottomNavigationView bottomNavigationView = binding.bottomNavView;
-
+        AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
+                R.id.homeFragment, R.id.statisticsFragment, R.id.impactFragment)
+                .setOpenableLayout(drawer)
+                .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
-
-        NavigationUI.setupWithNavController(bottomNavigationView, navController);
-
+        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
+        NavigationUI.setupWithNavController(navigationView, navController);
     }
 
     @Override
@@ -63,7 +52,6 @@ public class MainActivity extends AppCompatActivity {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.toolbar_options, menu);
         return true;
-
     }
 
     @Override
@@ -73,11 +61,19 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent = new Intent(MainActivity.this, AddFormActivity.class);
                 startActivityForResult(intent, ADD_FORM_REQUEST);
                 return true;
-            case R.id.dark_switch_option:
-                //do switch
+            case R.id.take_screenshot_option:
+                //code for screenshot
                 return true;
-            case R.id.grid_switch_option:
-                //do more
+            case R.id.dark_switch_option:
+                int nightMode = AppCompatDelegate.getDefaultNightMode();
+                if (nightMode == AppCompatDelegate.MODE_NIGHT_YES) {
+                    AppCompatDelegate.setDefaultNightMode
+                            (AppCompatDelegate.MODE_NIGHT_NO);
+                } else {
+                    AppCompatDelegate.setDefaultNightMode
+                            (AppCompatDelegate.MODE_NIGHT_YES);
+                }
+                recreate();
                 return true;
 
             default:
