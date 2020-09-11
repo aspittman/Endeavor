@@ -14,6 +14,6 @@
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
     <style name="SplashScreenTheme" parent = "Theme.AppCompat.NoActionBar">
-    <item name="android:windowBackground">@drawable/endeavorimage</item>
+    <item name="android:windowBackground">@mipmap/endeavor_header_foreground</item>
 </style>
 </resources>

@@ -11,16 +11,19 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.affinityapps.endeavor.R;
+import com.affinityapps.endeavor.databinding.FragmentImpactBinding;
 
 public class ImpactFragment extends Fragment {
+
+    FragmentImpactBinding binding;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.fragment_impact, container, false);
+        binding = FragmentImpactBinding.inflate(inflater, container, false);
+        View root = binding.getRoot();
 
-        TextView textView = root.findViewById(R.id.text_impact);
-        textView.setText("This is a test of Impact");
+        binding.textImpact.setText("This is a test of the Impact Fragment");
         return root;
     }
 }

@@ -17,13 +17,13 @@
     <item
         android:id="@+id/opportunitiesFragment"
         android:icon="@drawable/ic_opportunities"
-        android:title="@string/menu_impact"
+        android:title="@string/menu_opportunities"
         app:showAsAction="ifRoom"/>
 
     <item
         android:id="@+id/languageFragment"
         android:icon="@drawable/ic_translate"
-        android:title="@string/menu_impact"
+        android:title="@string/language_option"
         app:showAsAction="ifRoom"/>
 
     <item
@@ -35,6 +35,6 @@
     <item
         android:id="@+id/aboutFragment"
         android:icon="@drawable/ic_about"
-        android:title="@string/menu_impact"
+        android:title="@string/menu_about"
         app:showAsAction="ifRoom"/>
 </menu>

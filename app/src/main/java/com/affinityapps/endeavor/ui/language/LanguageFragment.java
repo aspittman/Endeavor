@@ -11,16 +11,19 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.affinityapps.endeavor.R;
+import com.affinityapps.endeavor.databinding.FragmentLanguageBinding;
 
 public class LanguageFragment extends Fragment {
+
+    FragmentLanguageBinding binding;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.fragment_impact, container, false);
+        binding = FragmentLanguageBinding.inflate(inflater, container, false);
+        View root = binding.getRoot();
 
-        TextView textView = root.findViewById(R.id.text_impact);
-        textView.setText("This is a test of the about section");
+        binding.textLanguages.setText("This is a test of the Language section");
         return root;
     }
 }
