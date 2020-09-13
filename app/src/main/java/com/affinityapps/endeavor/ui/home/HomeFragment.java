@@ -16,9 +16,11 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.affinityapps.endeavor.R;
 import com.affinityapps.endeavor.databinding.FragmentHomeBinding;
 import com.affinityapps.endeavor.ui.master.UpdateFormActivity;
 import com.affinityapps.endeavor.ui.master.Master;
+import com.affinityapps.endeavor.ui.master.UpdateFormFragment;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -46,6 +48,7 @@ public class HomeFragment extends Fragment {
     public static final String EXTRA_PURCHASES = "dataPurchases";
 
     private DatabaseReference databaseForms;
+    private Boolean twoPaneController;
     private Context context;
     private Master volunteer;
     private RecyclerView recyclerView;
@@ -68,7 +71,9 @@ public class HomeFragment extends Fragment {
 
         databaseForms = FirebaseDatabase.getInstance().getReference(DATABASE_PATH);
 
-        recyclerView = binding.homeFragmentRecyclerview;
+        twoPaneController = root.findViewById(R.id.item_detail_container) != null;
+
+        recyclerView = root.findViewById(R.id.home_fragment_recyclerview);
         recyclerView.setHasFixedSize(true);
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
@@ -96,19 +101,37 @@ public class HomeFragment extends Fragment {
                 homeAdapter.setHomeFragmentClickListener(new HomeAdapter.HomeFragmentClickListener() {
                     @Override
                     public void onHomeFragmentClick(int position) {
-                        Intent intent = new Intent(getActivity(), UpdateFormActivity.class);
                         Master master = homeFragmentArrayList.get(position);
 
-                        intent.putExtra(EXTRA_ID, master.getId());
-                        intent.putExtra(EXTRA_TITLE, master.getDocumentTitle());
-                        intent.putExtra(EXTRA_ORGANIZATION, master.getOrganization());
-                        intent.putExtra(EXTRA_PROJECT, master.getProject());
-                        intent.putExtra(EXTRA_DATE, master.getDate());
-                        intent.putExtra(EXTRA_HOURS, master.getHours());
-                        intent.putExtra(EXTRA_MILES, master.getMiles());
-                        intent.putExtra(EXTRA_PURCHASES, master.getPurchases());
+                        if(twoPaneController) {
+                            Bundle arguments = new Bundle();
+                            arguments.putString(EXTRA_ID, master.getId());
+                            arguments.putString(EXTRA_TITLE, master.getDocumentTitle());
+                            arguments.putString(EXTRA_ORGANIZATION, master.getOrganization());
+                            arguments.putString(EXTRA_PROJECT, master.getProject());
+                            arguments.putString(EXTRA_DATE, master.getDate());
+                            arguments.putString(EXTRA_HOURS, master.getHours());
+                            arguments.putString(EXTRA_MILES, master.getMiles());
+                            arguments.putString(EXTRA_PURCHASES, master.getPurchases());
 
-                        startActivity(intent);
+                            UpdateFormFragment fragment = new UpdateFormFragment();
+                            fragment.setArguments(arguments);
+//                            fragment.beginTransaction()
+//                                    .replace(R.id.item_detail_container, fragment)
+//                                    .commit();
+
+                        } else {
+                            Intent intent = new Intent(getActivity(), UpdateFormActivity.class);
+                            intent.putExtra(EXTRA_ID, master.getId());
+                            intent.putExtra(EXTRA_TITLE, master.getDocumentTitle());
+                            intent.putExtra(EXTRA_ORGANIZATION, master.getOrganization());
+                            intent.putExtra(EXTRA_PROJECT, master.getProject());
+                            intent.putExtra(EXTRA_DATE, master.getDate());
+                            intent.putExtra(EXTRA_HOURS, master.getHours());
+                            intent.putExtra(EXTRA_MILES, master.getMiles());
+                            intent.putExtra(EXTRA_PURCHASES, master.getPurchases());
+                            startActivity(intent);
+                        }
                     }
                 });
                 ItemTouchHelper.Callback callback = new HomeItemTouchHelper(homeAdapter);
