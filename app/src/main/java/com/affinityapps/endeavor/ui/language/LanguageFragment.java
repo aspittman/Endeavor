@@ -26,4 +26,10 @@ public class LanguageFragment extends Fragment {
         binding.textLanguages.setText("This is a test of the Language section");
         return root;
     }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        binding = null;
+    }
 }

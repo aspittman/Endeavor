@@ -26,4 +26,10 @@ public class ImpactFragment extends Fragment {
         binding.textImpact.setText("This is a test of the Impact Fragment");
         return root;
     }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        binding = null;
+    }
 }

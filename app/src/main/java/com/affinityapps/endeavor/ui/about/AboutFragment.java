@@ -26,4 +26,10 @@ public class AboutFragment extends Fragment {
         binding.textAbout.setText("This is a test of the about section");
         return root;
     }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        binding = null;
+    }
 }

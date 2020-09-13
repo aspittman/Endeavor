@@ -26,5 +26,11 @@ public class OpportunitiesFragment extends Fragment {
         binding.textOpportunities.setText("This is a test of the Opportunities section");
         return root;
     }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        binding = null;
+    }
 }
 

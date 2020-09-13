@@ -27,4 +27,10 @@ public class StatisticsFragment extends Fragment {
         binding.textStatistics.setText("This is a test of the Statistics section");
         return root;
     }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        binding = null;
+    }
 }
