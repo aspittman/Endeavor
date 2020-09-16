@@ -15,6 +15,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.affinityapps.endeavor.R;
 import com.affinityapps.endeavor.databinding.FragmentUpdateFormBinding;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -56,6 +57,7 @@ public class UpdateFormFragment extends Fragment {
         View root = binding.getRoot();
 
         databaseForms = FirebaseDatabase.getInstance().getReference(DATABASE_PATH);
+        Boolean twoPaneController = root.findViewById(R.id.item_detail_container) != null;
         Button updateFormButton = binding.updateNoteButton;
         editTitle = binding.editDocumentTitle;
         editOrganization = binding.editOrganization;
@@ -65,31 +67,57 @@ public class UpdateFormFragment extends Fragment {
         editMiles = binding.editMiles;
         editPurchases = binding.editPurchases;
 
-        Intent intent = requireActivity().getIntent();
+        if (twoPaneController) {
+            assert getArguments() != null;
+            final String id2 = getArguments().getString(EXTRA_ID);
+            String title2 = getArguments().getString(EXTRA_TITLE);
+            String organization2 = getArguments().getString(EXTRA_ORGANIZATION);
+            String project2 = getArguments().getString(EXTRA_PROJECT);
+            String date2 = getArguments().getString(EXTRA_DATE);
+            String hours2 = getArguments().getString(EXTRA_HOURS);
+            String miles2 = getArguments().getString(EXTRA_MILES);
+            String purchases2 = getArguments().getString(EXTRA_PURCHASES);
 
-        final String id = intent.getStringExtra(EXTRA_ID);
-        String title = intent.getStringExtra(EXTRA_TITLE);
-        String organization = intent.getStringExtra(EXTRA_ORGANIZATION);
-        String project = intent.getStringExtra(EXTRA_PROJECT);
-        String date = intent.getStringExtra(EXTRA_DATE);
-        String hours = intent.getStringExtra(EXTRA_HOURS);
-        String miles = intent.getStringExtra(EXTRA_MILES);
-        String purchases = intent.getStringExtra(EXTRA_PURCHASES);
+            editTitle.setText(title2);
+            editOrganization.setText(organization2);
+            editProject.setText(project2);
+            editDate.setText(date2);
+            editHours.setText(hours2);
+            editMiles.setText(miles2);
+            editPurchases.setText(purchases2);
 
-        editTitle.setText(title);
-        editOrganization.setText(organization);
-        editProject.setText(project);
-        editDate.setText(date);
-        editHours.setText(hours);
-        editMiles.setText(miles);
-        editPurchases.setText(purchases);
+            updateFormButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    updateDatabase(id2);
+                }
+            });
+        } else {
+            Intent intent = requireActivity().getIntent();
+            final String id = intent.getStringExtra(EXTRA_ID);
+            String title = intent.getStringExtra(EXTRA_TITLE);
+            String organization = intent.getStringExtra(EXTRA_ORGANIZATION);
+            String project = intent.getStringExtra(EXTRA_PROJECT);
+            String date = intent.getStringExtra(EXTRA_DATE);
+            String hours = intent.getStringExtra(EXTRA_HOURS);
+            String miles = intent.getStringExtra(EXTRA_MILES);
+            String purchases = intent.getStringExtra(EXTRA_PURCHASES);
 
-        updateFormButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                updateDatabase(id);
-            }
-        });
+            editTitle.setText(title);
+            editOrganization.setText(organization);
+            editProject.setText(project);
+            editDate.setText(date);
+            editHours.setText(hours);
+            editMiles.setText(miles);
+            editPurchases.setText(purchases);
+
+            updateFormButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    updateDatabase(id);
+                }
+            });
+        }
         return root;
     }
 

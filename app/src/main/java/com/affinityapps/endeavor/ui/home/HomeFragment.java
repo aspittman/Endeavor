@@ -18,9 +18,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.affinityapps.endeavor.R;
 import com.affinityapps.endeavor.databinding.FragmentHomeBinding;
-import com.affinityapps.endeavor.ui.master.UpdateFormActivity;
 import com.affinityapps.endeavor.ui.master.Master;
-import com.affinityapps.endeavor.ui.master.UpdateFormFragment;
+import com.affinityapps.endeavor.ui.master.UpdateFormActivity;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -50,12 +49,16 @@ public class HomeFragment extends Fragment {
     private DatabaseReference databaseForms;
     private Boolean twoPaneController;
     private Context context;
-    private Master volunteer;
+    private DataFragmentTransfer dataFragmentTransfer;
     private RecyclerView recyclerView;
     private HomeAdapter homeAdapter;
     private List<Master> homeFragmentArrayList;
     private FragmentHomeBinding binding;
 
+    public interface DataFragmentTransfer {
+        void dataListInputSent(String id, String documentTitle, String organization, String project,
+                               String date, String hours, String miles, String purchases);
+    }
 
     public HomeFragment() {
 
@@ -103,22 +106,10 @@ public class HomeFragment extends Fragment {
                     public void onHomeFragmentClick(int position) {
                         Master master = homeFragmentArrayList.get(position);
 
-                        if(twoPaneController) {
-                            Bundle arguments = new Bundle();
-                            arguments.putString(EXTRA_ID, master.getId());
-                            arguments.putString(EXTRA_TITLE, master.getDocumentTitle());
-                            arguments.putString(EXTRA_ORGANIZATION, master.getOrganization());
-                            arguments.putString(EXTRA_PROJECT, master.getProject());
-                            arguments.putString(EXTRA_DATE, master.getDate());
-                            arguments.putString(EXTRA_HOURS, master.getHours());
-                            arguments.putString(EXTRA_MILES, master.getMiles());
-                            arguments.putString(EXTRA_PURCHASES, master.getPurchases());
-
-                            UpdateFormFragment fragment = new UpdateFormFragment();
-                            fragment.setArguments(arguments);
-//                            fragment.beginTransaction()
-//                                    .replace(R.id.item_detail_container, fragment)
-//                                    .commit();
+                        if (twoPaneController) {
+                            dataFragmentTransfer.dataListInputSent(master.getId(), master.getDocumentTitle(),
+                                    master.getOrganization(), master.getProject(), master.getDate(), master.getHours(),
+                                    master.getMiles(), master.getPurchases());
 
                         } else {
                             Intent intent = new Intent(getActivity(), UpdateFormActivity.class);
@@ -148,6 +139,20 @@ public class HomeFragment extends Fragment {
     }
 
     @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        if (context instanceof DataFragmentTransfer) {
+            dataFragmentTransfer = (DataFragmentTransfer) context;
+        }
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        dataFragmentTransfer = null;
+    }
+
+    @Override
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
@@ -158,7 +163,6 @@ public class HomeFragment extends Fragment {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == ADD_FORM_REQUEST && resultCode == RESULT_OK) {
-
             Toast.makeText(getActivity(), "Form Saved", Toast.LENGTH_SHORT).show();
         } else {
             Toast.makeText(getActivity(), "Form didn't Save", Toast.LENGTH_SHORT).show();

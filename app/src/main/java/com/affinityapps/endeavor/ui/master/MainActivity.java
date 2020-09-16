@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -19,9 +20,19 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.affinityapps.endeavor.R;
 import com.affinityapps.endeavor.databinding.ActivityMainBinding;
+import com.affinityapps.endeavor.ui.home.HomeFragment;
 import com.google.android.material.navigation.NavigationView;
 
-public class MainActivity extends AppCompatActivity {
+import static com.affinityapps.endeavor.ui.home.HomeFragment.EXTRA_DATE;
+import static com.affinityapps.endeavor.ui.home.HomeFragment.EXTRA_HOURS;
+import static com.affinityapps.endeavor.ui.home.HomeFragment.EXTRA_ID;
+import static com.affinityapps.endeavor.ui.home.HomeFragment.EXTRA_MILES;
+import static com.affinityapps.endeavor.ui.home.HomeFragment.EXTRA_ORGANIZATION;
+import static com.affinityapps.endeavor.ui.home.HomeFragment.EXTRA_PROJECT;
+import static com.affinityapps.endeavor.ui.home.HomeFragment.EXTRA_PURCHASES;
+import static com.affinityapps.endeavor.ui.home.HomeFragment.EXTRA_TITLE;
+
+public class MainActivity extends AppCompatActivity implements HomeFragment.DataFragmentTransfer {
 
     public static final int ADD_FORM_REQUEST = 1;
     private AppBarConfiguration appBarConfiguration;
@@ -47,6 +58,24 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
+    }
+
+    @Override
+    public void dataListInputSent(String id, String documentTitle, String organization,
+                                  String project, String date, String hours, String miles, String purchases) {
+        UpdateFormFragment fragment = new UpdateFormFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString(EXTRA_ID, id);
+        bundle.putString(EXTRA_TITLE, documentTitle);
+        bundle.putString(EXTRA_ORGANIZATION, organization);
+        bundle.putString(EXTRA_PROJECT, project);
+        bundle.putString(EXTRA_DATE, date);
+        bundle.putString(EXTRA_HOURS, hours);
+        bundle.putString(EXTRA_MILES, miles);
+        bundle.putString(EXTRA_PURCHASES, purchases);
+        fragment.setArguments(bundle);
+        getSupportFragmentManager().beginTransaction().
+                replace(R.id.item_detail_container, fragment).commit();
     }
 
     @Override
