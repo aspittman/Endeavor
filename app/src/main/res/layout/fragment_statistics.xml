@@ -23,7 +23,7 @@
         android:gravity="center_horizontal" />
 
     <com.github.mikephil.charting.charts.BarChart
-        android:id="@+id/barChart"
+        android:id="@+id/data_input_bar_chart"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 

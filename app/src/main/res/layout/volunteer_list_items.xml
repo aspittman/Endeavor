@@ -2,30 +2,44 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="100dp"
+    android:layout_height="64dp"
     android:layout_marginStart="8dp"
     android:layout_marginLeft="8dp"
-    android:layout_marginRight="8dp"
-    android:layout_marginEnd="8dp"
     android:layout_marginTop="8dp"
+    android:layout_marginEnd="8dp"
+    android:layout_marginRight="8dp"
+    android:gravity="center"
     app:cardBackgroundColor="@color/PrimaryGreen"
-    app:cardCornerRadius="4dp"
-    android:gravity="center">
+    app:cardCornerRadius="4dp">
 
-    <TextView
-        android:id="@+id/volunteer_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@color/colorWhite"
-        android:layout_gravity="center"
-        android:textSize="24sp"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp">
 
-    <TextView
-        android:id="@+id/volunteer_date"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@color/colorWhite"
-        android:layout_gravity="top|end"
-        android:textSize="24sp"/>
+        <TextView
+            android:id="@+id/volunteer_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorWhite"
+            android:textSize="24sp" />
 
+        <TextView
+            android:id="@+id/volunteer_project"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/volunteer_title"
+            android:textColor="@color/colorWhite"
+            android:textSize="24sp" />
+    </RelativeLayout>
+        <TextView
+            android:id="@+id/volunteer_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            android:textColor="@color/colorWhite"
+            android:textSize="20sp" />
 </androidx.cardview.widget.CardView>

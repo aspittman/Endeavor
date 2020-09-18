@@ -70,6 +70,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeFragmentVi
         Master master = homeFragmentArrayList.get(position);
 
         holder.binding.volunteerTitle.setText(master.getDocumentTitle());
+        holder.binding.volunteerProject.setText(master.getProject());
         holder.binding.volunteerDate.setText(master.getDate());
     }
 
@@ -88,6 +89,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeFragmentVi
         VolunteerListItemsBinding binding;
         GestureDetector gestureDetector;
         TextView volunteerTitle;
+        TextView volunteerProject;
         TextView volunteerDate;
 
         public HomeFragmentViewHolder(VolunteerListItemsBinding binding) {
@@ -95,6 +97,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeFragmentVi
             this.binding = binding;
 
             volunteerTitle = binding.volunteerTitle;
+            volunteerProject = binding.volunteerProject;
             volunteerDate = binding.volunteerDate;
             itemView.setOnTouchListener(this);
             gestureDetector = new GestureDetector(binding.getRoot().getContext(), this);
