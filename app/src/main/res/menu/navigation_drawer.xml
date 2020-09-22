@@ -15,21 +15,15 @@
         app:showAsAction="ifRoom"/>
 
     <item
-        android:id="@+id/opportunitiesFragment"
-        android:icon="@drawable/ic_opportunities"
-        android:title="@string/menu_opportunities"
+        android:id="@+id/impactFragment"
+        android:icon="@drawable/ic_impact"
+        android:title="@string/menu_impact"
         app:showAsAction="ifRoom"/>
 
     <item
         android:id="@+id/languageFragment"
         android:icon="@drawable/ic_translate"
         android:title="@string/language_option"
-        app:showAsAction="ifRoom"/>
-
-    <item
-        android:id="@+id/impactFragment"
-        android:icon="@drawable/ic_impact"
-        android:title="@string/menu_impact"
         app:showAsAction="ifRoom"/>
 
     <item

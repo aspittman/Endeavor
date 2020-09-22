@@ -18,22 +18,16 @@
         tools:layout="@layout/fragment_statistics" />
 
     <fragment
-        android:id="@+id/opportunitiesFragment"
-        android:name="com.affinityapps.endeavor.ui.opportunities.OpportunitiesFragment"
-        android:label="@string/menu_opportunities"
-        tools:layout="@layout/fragment_opportunities" />
+        android:id="@+id/impactFragment"
+        android:name="com.affinityapps.endeavor.ui.impact.ImpactFragment"
+        android:label="@string/menu_impact"
+        tools:layout="@layout/fragment_impact" />
 
     <fragment
         android:id="@+id/languageFragment"
         android:name="com.affinityapps.endeavor.ui.language.LanguageFragment"
         android:label="@string/language_option"
         tools:layout="@layout/fragment_language" />
-
-    <fragment
-        android:id="@+id/impactFragment"
-        android:name="com.affinityapps.endeavor.ui.impact.ImpactFragment"
-        android:label="@string/menu_impact"
-        tools:layout="@layout/fragment_impact" />
 
     <fragment
         android:id="@+id/aboutFragment"

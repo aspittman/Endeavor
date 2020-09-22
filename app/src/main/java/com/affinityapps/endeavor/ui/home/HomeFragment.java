@@ -2,6 +2,7 @@ package com.affinityapps.endeavor.ui.home;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -37,6 +38,7 @@ import static com.affinityapps.endeavor.ui.master.MainActivity.ADD_FORM_REQUEST;
 public class HomeFragment extends Fragment {
 
     public static final String TAG = HomeFragment.class.getSimpleName();
+    public static final String DEFAULT_VALUE = "No Value";
     public static final String EXTRA_ID = "dataId";
     public static final String EXTRA_TITLE = "dataTitle";
     public static final String EXTRA_ORGANIZATION = "dataOrganization";
@@ -47,6 +49,7 @@ public class HomeFragment extends Fragment {
     public static final String EXTRA_PURCHASES = "dataPurchases";
 
     private DatabaseReference databaseForms;
+    private SharedPreferences preferences;
     private Boolean twoPaneController;
     private Context context;
     private DataFragmentTransfer dataFragmentTransfer;
@@ -55,13 +58,16 @@ public class HomeFragment extends Fragment {
     private List<Master> homeFragmentArrayList;
     private FragmentHomeBinding binding;
 
-    public interface DataFragmentTransfer {
-        void dataListInputSent(String id, String documentTitle, String organization, String project,
-                               String date, String hours, String miles, String purchases);
-    }
-
     public HomeFragment() {
 
+    }
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        if (context instanceof DataFragmentTransfer) {
+            dataFragmentTransfer = (DataFragmentTransfer) context;
+        }
     }
 
     @Nullable
@@ -74,6 +80,16 @@ public class HomeFragment extends Fragment {
 
         databaseForms = FirebaseDatabase.getInstance().getReference(DATABASE_PATH);
 
+        SharedPreferences preferences = requireActivity().getPreferences(Context.MODE_PRIVATE);
+        preferences.getString(EXTRA_ID, DEFAULT_VALUE);
+        preferences.getString(EXTRA_TITLE, DEFAULT_VALUE);
+        preferences.getString(EXTRA_ORGANIZATION, DEFAULT_VALUE);
+        preferences.getString(EXTRA_PROJECT, DEFAULT_VALUE);
+        preferences.getString(EXTRA_DATE, DEFAULT_VALUE);
+        preferences.getString(EXTRA_HOURS, DEFAULT_VALUE);
+        preferences.getString(EXTRA_MILES, DEFAULT_VALUE);
+        preferences.getString(EXTRA_PURCHASES, DEFAULT_VALUE);
+
         twoPaneController = root.findViewById(R.id.item_detail_container) != null;
 
         recyclerView = root.findViewById(R.id.home_fragment_recyclerview);
@@ -83,6 +99,17 @@ public class HomeFragment extends Fragment {
         recyclerView.setLayoutManager(layoutManager);
 
         return root;
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == ADD_FORM_REQUEST && resultCode == RESULT_OK) {
+            Toast.makeText(getActivity(), "Form Saved", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(getActivity(), "Form didn't Save", Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override
@@ -105,7 +132,6 @@ public class HomeFragment extends Fragment {
                     @Override
                     public void onHomeFragmentClick(int position) {
                         Master master = homeFragmentArrayList.get(position);
-
                         if (twoPaneController) {
                             dataFragmentTransfer.dataListInputSent(master.getId(), master.getDocumentTitle(),
                                     master.getOrganization(), master.getProject(), master.getDate(), master.getHours(),
@@ -139,11 +165,20 @@ public class HomeFragment extends Fragment {
     }
 
     @Override
-    public void onAttach(@NonNull Context context) {
-        super.onAttach(context);
-        if (context instanceof DataFragmentTransfer) {
-            dataFragmentTransfer = (DataFragmentTransfer) context;
-        }
+    public void onPause() {
+        super.onPause();
+        Master master = new Master();
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putString(EXTRA_ID, master.getId());
+        editor.putString(EXTRA_TITLE, master.getDocumentTitle());
+        editor.putString(EXTRA_ORGANIZATION, master.getOrganization());
+        editor.putString(EXTRA_PROJECT, master.getProject());
+        editor.putString(EXTRA_DATE, master.getDate());
+        editor.putString(EXTRA_HOURS, master.getHours());
+        editor.putString(EXTRA_MILES, master.getMiles());
+        editor.putString(EXTRA_PURCHASES, master.getPurchases());
+        editor.apply();
+
     }
 
     @Override
@@ -158,14 +193,8 @@ public class HomeFragment extends Fragment {
         binding = null;
     }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if (requestCode == ADD_FORM_REQUEST && resultCode == RESULT_OK) {
-            Toast.makeText(getActivity(), "Form Saved", Toast.LENGTH_SHORT).show();
-        } else {
-            Toast.makeText(getActivity(), "Form didn't Save", Toast.LENGTH_SHORT).show();
-        }
+    public interface DataFragmentTransfer {
+        void dataListInputSent(String id, String documentTitle, String organization, String project,
+                               String date, String hours, String miles, String purchases);
     }
 }

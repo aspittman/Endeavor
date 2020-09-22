@@ -3,6 +3,7 @@
     package="com.affinityapps.endeavor">
 
     <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
 
     <application
         android:allowBackup="true"
@@ -11,6 +12,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="ca-app-pub-2999844319459986~8520610002"/>
+
         <activity
             android:name=".login.SplashScreenActivity"
             android:theme="@style/SplashScreenTheme">

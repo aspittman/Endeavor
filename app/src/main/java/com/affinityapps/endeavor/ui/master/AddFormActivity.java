@@ -14,6 +14,12 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.affinityapps.endeavor.databinding.ActivityAddFormBinding;
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdLoader;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.LoadAdError;
+import com.google.android.gms.ads.formats.NativeAdOptions;
+import com.google.android.gms.ads.formats.UnifiedNativeAd;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
@@ -50,6 +56,27 @@ public class AddFormActivity extends AppCompatActivity {
         ActivityAddFormBinding binding = ActivityAddFormBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
+
+        AdLoader adLoader = new AdLoader.Builder(this, "ca-app-pub-2999844319459986~8520610002")
+                .forUnifiedNativeAd(new UnifiedNativeAd.OnUnifiedNativeAdLoadedListener() {
+                    @Override
+                    public void onUnifiedNativeAdLoaded(UnifiedNativeAd unifiedNativeAd) {
+                        // Show the ad.
+                    }
+                })
+                .withAdListener(new AdListener() {
+                    @Override
+                    public void onAdFailedToLoad(LoadAdError adError) {
+                        // Handle the failure by logging, altering the UI, and so on.
+                    }
+                })
+                .withNativeAdOptions(new NativeAdOptions.Builder()
+                        // Methods in the NativeAdOptions.Builder class can be
+                        // used here to specify individual options settings.
+                        .build())
+                .build();
+
+        adLoader.loadAd(new AdRequest.Builder().build());
 
         databaseForms = FirebaseDatabase.getInstance().getReference(DATABASE_PATH);
         Button saveFormButton = binding.saveNoteButton;
