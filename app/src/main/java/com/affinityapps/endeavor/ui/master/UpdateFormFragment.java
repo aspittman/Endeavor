@@ -33,8 +33,9 @@ import static com.affinityapps.endeavor.ui.home.HomeFragment.EXTRA_TITLE;
 
 public class UpdateFormFragment extends Fragment {
 
-    public static final String DATABASE_PATH = "user_forms";
     public static final String TAG = AddFormActivity.class.getSimpleName();
+    public static final String DATABASE_PATH = "user_forms";
+
     private DatabaseReference databaseForms;
     private FragmentUpdateFormBinding binding;
     private EditText editTitle;
@@ -44,6 +45,7 @@ public class UpdateFormFragment extends Fragment {
     private EditText editHours;
     private EditText editMiles;
     private EditText editPurchases;
+
 
     public UpdateFormFragment() {
 
@@ -125,7 +127,7 @@ public class UpdateFormFragment extends Fragment {
                     Log.d(TAG, "onFailure: " + e.getMessage());
                 }
             });
-            Toast.makeText(getActivity(), "Operation Successful", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), "Document Updated", Toast.LENGTH_SHORT).show();
 
             Intent intent = new Intent(getActivity(), MainActivity.class);
             startActivity(intent);

@@ -36,10 +36,10 @@ import static com.affinityapps.endeavor.ui.home.HomeFragment.EXTRA_TITLE;
 
 public class AddFormActivity extends AppCompatActivity {
 
-    public static final String DATABASE_PATH = "user_forms";
     public static final String TAG = AddFormActivity.class.getSimpleName();
-    private DatabaseReference databaseForms;
+    public static final String DATABASE_PATH = "user_forms";
 
+    private DatabaseReference databaseForms;
     private EditText editTitle;
     private EditText editOrganization;
     private EditText editProject;
@@ -142,7 +142,7 @@ public class AddFormActivity extends AppCompatActivity {
                     Log.d(TAG, "onFailure: " + e.getMessage());
                 }
             });
-            Toast.makeText(this, "Operation Successful", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Document Saved", Toast.LENGTH_SHORT).show();
 
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);

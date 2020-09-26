@@ -2,7 +2,6 @@ package com.affinityapps.endeavor.ui.home;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -38,7 +37,6 @@ import static com.affinityapps.endeavor.ui.master.MainActivity.ADD_FORM_REQUEST;
 public class HomeFragment extends Fragment {
 
     public static final String TAG = HomeFragment.class.getSimpleName();
-    public static final String DEFAULT_VALUE = "No Value";
     public static final String EXTRA_ID = "dataId";
     public static final String EXTRA_TITLE = "dataTitle";
     public static final String EXTRA_ORGANIZATION = "dataOrganization";
@@ -49,7 +47,6 @@ public class HomeFragment extends Fragment {
     public static final String EXTRA_PURCHASES = "dataPurchases";
 
     private DatabaseReference databaseForms;
-    private SharedPreferences preferences;
     private Boolean twoPaneController;
     private Context context;
     private DataFragmentTransfer dataFragmentTransfer;
@@ -79,16 +76,6 @@ public class HomeFragment extends Fragment {
         homeFragmentArrayList = new ArrayList<>();
 
         databaseForms = FirebaseDatabase.getInstance().getReference(DATABASE_PATH);
-
-        SharedPreferences preferences = requireActivity().getPreferences(Context.MODE_PRIVATE);
-        preferences.getString(EXTRA_ID, DEFAULT_VALUE);
-        preferences.getString(EXTRA_TITLE, DEFAULT_VALUE);
-        preferences.getString(EXTRA_ORGANIZATION, DEFAULT_VALUE);
-        preferences.getString(EXTRA_PROJECT, DEFAULT_VALUE);
-        preferences.getString(EXTRA_DATE, DEFAULT_VALUE);
-        preferences.getString(EXTRA_HOURS, DEFAULT_VALUE);
-        preferences.getString(EXTRA_MILES, DEFAULT_VALUE);
-        preferences.getString(EXTRA_PURCHASES, DEFAULT_VALUE);
 
         twoPaneController = root.findViewById(R.id.item_detail_container) != null;
 
@@ -123,7 +110,6 @@ public class HomeFragment extends Fragment {
 
                 for (DataSnapshot formSnapshot : snapshot.getChildren()) {
                     Master master = formSnapshot.getValue(Master.class);
-
                     homeFragmentArrayList.add(master);
                 }
                 homeAdapter = new HomeAdapter(context, homeFragmentArrayList);
@@ -162,23 +148,6 @@ public class HomeFragment extends Fragment {
                 Log.w(TAG, "Failed to read value.", error.toException());
             }
         });
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        Master master = new Master();
-        SharedPreferences.Editor editor = preferences.edit();
-        editor.putString(EXTRA_ID, master.getId());
-        editor.putString(EXTRA_TITLE, master.getDocumentTitle());
-        editor.putString(EXTRA_ORGANIZATION, master.getOrganization());
-        editor.putString(EXTRA_PROJECT, master.getProject());
-        editor.putString(EXTRA_DATE, master.getDate());
-        editor.putString(EXTRA_HOURS, master.getHours());
-        editor.putString(EXTRA_MILES, master.getMiles());
-        editor.putString(EXTRA_PURCHASES, master.getPurchases());
-        editor.apply();
-
     }
 
     @Override
