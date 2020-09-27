@@ -1,4 +1,4 @@
 package com.affinityapps.endeavor.utils;
 
-public class NetworkUtil {
+public class NetworkUtils {
 }
