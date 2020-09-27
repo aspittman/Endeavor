@@ -77,7 +77,7 @@ public class HomeFragment extends Fragment {
 
         databaseForms = FirebaseDatabase.getInstance().getReference(DATABASE_PATH);
         databaseForms.keepSynced(true);
-        
+
         twoPaneController = root.findViewById(R.id.item_detail_container) != null;
 
         recyclerView = root.findViewById(R.id.home_fragment_recyclerview);
