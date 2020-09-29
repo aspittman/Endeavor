@@ -20,9 +20,6 @@ import androidx.navigation.ui.NavigationUI;
 import com.affinityapps.endeavor.R;
 import com.affinityapps.endeavor.databinding.ActivityMainBinding;
 import com.affinityapps.endeavor.ui.home.HomeFragment;
-import com.google.android.gms.ads.MobileAds;
-import com.google.android.gms.ads.initialization.InitializationStatus;
-import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 import com.google.android.material.navigation.NavigationView;
 
 import static com.affinityapps.endeavor.ui.home.HomeFragment.EXTRA_DATE;
@@ -45,13 +42,6 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.Data
         ActivityMainBinding binding = ActivityMainBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
-
-        MobileAds.initialize(this, new OnInitializationCompleteListener() {
-            @Override
-            public void onInitializationComplete(InitializationStatus initializationStatus) {
-
-            }
-        });
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);

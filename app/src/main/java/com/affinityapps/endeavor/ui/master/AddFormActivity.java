@@ -1,6 +1,7 @@
 package com.affinityapps.endeavor.ui.master;
 
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -13,12 +14,12 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.affinityapps.endeavor.R;
 import com.affinityapps.endeavor.databinding.ActivityAddFormBinding;
-import com.google.android.gms.ads.AdListener;
+import com.google.android.ads.nativetemplates.NativeTemplateStyle;
+import com.google.android.ads.nativetemplates.TemplateView;
 import com.google.android.gms.ads.AdLoader;
 import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.LoadAdError;
-import com.google.android.gms.ads.formats.NativeAdOptions;
 import com.google.android.gms.ads.formats.UnifiedNativeAd;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -53,7 +54,7 @@ public class AddFormActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        ActivityAddFormBinding binding = ActivityAddFormBinding.inflate(getLayoutInflater());
+        final ActivityAddFormBinding binding = ActivityAddFormBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
 
@@ -61,19 +62,15 @@ public class AddFormActivity extends AppCompatActivity {
                 .forUnifiedNativeAd(new UnifiedNativeAd.OnUnifiedNativeAdLoadedListener() {
                     @Override
                     public void onUnifiedNativeAdLoaded(UnifiedNativeAd unifiedNativeAd) {
-                        // Show the ad.
+                        ColorDrawable colorDrawable = new ColorDrawable(getResources().getColor(R.color.colorBlack));
+                        NativeTemplateStyle styles = new
+                                NativeTemplateStyle.Builder().withMainBackgroundColor(colorDrawable).build();
+
+                        TemplateView template = binding.addFormTemplate;
+                        template.setStyles(styles);
+                        template.setNativeAd(unifiedNativeAd);
                     }
                 })
-                .withAdListener(new AdListener() {
-                    @Override
-                    public void onAdFailedToLoad(LoadAdError adError) {
-                        // Handle the failure by logging, altering the UI, and so on.
-                    }
-                })
-                .withNativeAdOptions(new NativeAdOptions.Builder()
-                        // Methods in the NativeAdOptions.Builder class can be
-                        // used here to specify individual options settings.
-                        .build())
                 .build();
 
         adLoader.loadAd(new AdRequest.Builder().build());

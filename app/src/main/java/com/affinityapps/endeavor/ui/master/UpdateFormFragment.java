@@ -1,6 +1,7 @@
 package com.affinityapps.endeavor.ui.master;
 
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -15,7 +16,13 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.affinityapps.endeavor.R;
 import com.affinityapps.endeavor.databinding.FragmentUpdateFormBinding;
+import com.google.android.ads.nativetemplates.NativeTemplateStyle;
+import com.google.android.ads.nativetemplates.TemplateView;
+import com.google.android.gms.ads.AdLoader;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.formats.UnifiedNativeAd;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
@@ -57,7 +64,24 @@ public class UpdateFormFragment extends Fragment {
         binding = FragmentUpdateFormBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        databaseForms = FirebaseDatabase.getInstance().getReference(DATABASE_PATH);
+        AdLoader adLoader = new AdLoader.Builder(requireActivity(), "ca-app-pub-2999844319459986~8520610002")
+                .forUnifiedNativeAd(new UnifiedNativeAd.OnUnifiedNativeAdLoadedListener() {
+                    @Override
+                    public void onUnifiedNativeAdLoaded(UnifiedNativeAd unifiedNativeAd) {
+                        ColorDrawable colorDrawable = new ColorDrawable(getResources().getColor(R.color.colorBlack));
+                        NativeTemplateStyle styles = new
+                                NativeTemplateStyle.Builder().withMainBackgroundColor(colorDrawable).build();
+
+                        TemplateView template = binding.updateFormTemplate;
+                        template.setStyles(styles);
+                        template.setNativeAd(unifiedNativeAd);
+                    }
+                })
+                .build();
+
+        adLoader.loadAd(new AdRequest.Builder().build());
+
+    databaseForms = FirebaseDatabase.getInstance().getReference(DATABASE_PATH);
         Button updateFormButton = binding.updateNoteButton;
         editTitle = binding.editDocumentTitle;
         editOrganization = binding.editOrganization;
