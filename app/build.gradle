@@ -5,6 +5,15 @@ android {
     compileSdkVersion 30
     buildToolsVersion "29.0.3"
 
+    signingConfigs {
+        config {
+            keyAlias 'Udacity'
+            keyPassword 'thisisit'
+            storeFile file('/Programs/AndroidStudioProjects/Endeavor/app')
+            storePassword 'spectrum'
+        }
+    }
+
     buildFeatures {
         viewBinding = true
         dataBinding = true
