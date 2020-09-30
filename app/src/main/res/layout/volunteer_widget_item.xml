@@ -4,7 +4,7 @@
     android:layout_width="200dp"
     android:layout_height="200dp"
     android:background="@drawable/gradient"
-    android:text="item"
+    android:text="@string/widget_item"
     android:textColor="@color/colorBlack"
     android:textSize="20sp"
     android:textStyle="bold"

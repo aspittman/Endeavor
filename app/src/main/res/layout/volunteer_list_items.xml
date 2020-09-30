@@ -9,6 +9,7 @@
     android:layout_marginEnd="8dp"
     android:layout_marginRight="8dp"
     android:gravity="center"
+    android:focusable="true"
     app:cardBackgroundColor="@color/PrimaryGreen"
     app:cardCornerRadius="4dp">
 

@@ -37,4 +37,7 @@
     <string name="form_purchases">Purchases</string>
     <string name="save_option">Save</string>
     <string name="update_option">Update</string>
+
+    <!--Widget Options-->
+    <string name="widget_item">item</string>
 </resources>
