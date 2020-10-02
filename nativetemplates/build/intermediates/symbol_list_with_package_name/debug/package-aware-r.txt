@@ -1163,6 +1163,7 @@ string abc_shareactionprovider_share_with
 string abc_shareactionprovider_share_with_application
 string abc_toolbar_collapse_description
 string common_google_play_services_unknown_issue
+string gnt_ad_title
 string s1
 string s2
 string s3

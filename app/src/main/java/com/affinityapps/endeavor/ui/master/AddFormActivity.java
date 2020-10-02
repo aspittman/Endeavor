@@ -120,7 +120,21 @@ public class AddFormActivity extends AppCompatActivity {
         String miles = editMiles.getText().toString().trim();
         String purchases = editPurchases.getText().toString().trim();
 
-        if (!TextUtils.isEmpty(title)) {
+        if (TextUtils.isEmpty(title)) {
+            Toast.makeText(this, "Please insert Document Title", Toast.LENGTH_SHORT).show();
+        } else if (TextUtils.isEmpty(organization)) {
+            Toast.makeText(this, "Please insert Organization", Toast.LENGTH_SHORT).show();
+        } else if (TextUtils.isEmpty(project)) {
+            Toast.makeText(this, "Please insert Project name", Toast.LENGTH_SHORT).show();
+        } else if (TextUtils.isEmpty(date)) {
+            Toast.makeText(this, "Please insert Date", Toast.LENGTH_SHORT).show();
+        } else if (TextUtils.isEmpty(hours)) {
+            Toast.makeText(this, "Please insert Hours", Toast.LENGTH_SHORT).show();
+        } else if (TextUtils.isEmpty(miles)) {
+            Toast.makeText(this, "Please insert Miles", Toast.LENGTH_SHORT).show();
+        } else if (TextUtils.isEmpty(purchases)) {
+            Toast.makeText(this, "Please insert Purchases", Toast.LENGTH_SHORT).show();
+        } else {
             String id = databaseForms.push().getKey();
             Master master = new Master(id, title, organization, project, date, hours, miles, purchases);
 
@@ -143,8 +157,6 @@ public class AddFormActivity extends AppCompatActivity {
 
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
-        } else {
-            Toast.makeText(this, "Please insert Document Title", Toast.LENGTH_SHORT).show();
         }
     }
 }

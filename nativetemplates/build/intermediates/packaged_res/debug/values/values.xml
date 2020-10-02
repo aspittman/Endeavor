@@ -27,6 +27,7 @@
     <item format="float" name="gnt_text_row_weight" type="dimen">0.25</item>
     <dimen name="gnt_text_size_large">15sp</dimen>
     <dimen name="gnt_text_size_small">12sp</dimen>
+    <string name="gnt_ad_title">Ad</string>
     <declare-styleable name="TemplateView">
     <attr format="reference" name="gnt_template_type"/>
   </declare-styleable>

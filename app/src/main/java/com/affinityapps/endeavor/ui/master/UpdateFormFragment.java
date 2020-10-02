@@ -81,7 +81,7 @@ public class UpdateFormFragment extends Fragment {
 
         adLoader.loadAd(new AdRequest.Builder().build());
 
-    databaseForms = FirebaseDatabase.getInstance().getReference(DATABASE_PATH);
+        databaseForms = FirebaseDatabase.getInstance().getReference(DATABASE_PATH);
         Button updateFormButton = binding.updateNoteButton;
         editTitle = binding.editDocumentTitle;
         editOrganization = binding.editOrganization;
@@ -133,7 +133,21 @@ public class UpdateFormFragment extends Fragment {
         String miles = editMiles.getText().toString().trim();
         String purchases = editPurchases.getText().toString().trim();
 
-        if (!TextUtils.isEmpty(title)) {
+        if (TextUtils.isEmpty(title)) {
+            Toast.makeText(getActivity(), "Please insert Document Title", Toast.LENGTH_SHORT).show();
+        } else if (TextUtils.isEmpty(organization)) {
+            Toast.makeText(getActivity(), "Please insert Organization", Toast.LENGTH_SHORT).show();
+        } else if (TextUtils.isEmpty(project)) {
+            Toast.makeText(getActivity(), "Please insert Project name", Toast.LENGTH_SHORT).show();
+        } else if (TextUtils.isEmpty(date)) {
+            Toast.makeText(getActivity(), "Please insert Date", Toast.LENGTH_SHORT).show();
+        } else if (TextUtils.isEmpty(hours)) {
+            Toast.makeText(getActivity(), "Please insert Hours", Toast.LENGTH_SHORT).show();
+        } else if (TextUtils.isEmpty(miles)) {
+            Toast.makeText(getActivity(), "Please insert Miles", Toast.LENGTH_SHORT).show();
+        } else if (TextUtils.isEmpty(purchases)) {
+            Toast.makeText(getActivity(), "Please insert Purchases", Toast.LENGTH_SHORT).show();
+        } else {
             Master master = new Master(id, title, organization, project, date, hours, miles, purchases);
 
             assert id != null;
@@ -155,8 +169,6 @@ public class UpdateFormFragment extends Fragment {
 
             Intent intent = new Intent(getActivity(), MainActivity.class);
             startActivity(intent);
-        } else {
-            Toast.makeText(getActivity(), "Please insert Document Title", Toast.LENGTH_SHORT).show();
         }
     }
 }
