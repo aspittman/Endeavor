@@ -9,7 +9,7 @@ android {
         config {
             keyAlias 'Udacity'
             keyPassword 'thisisit'
-            storeFile file('/home/aaron/Programs/AndroidStudioProjects/Endeavor/app/endeavor-keystore.jks')
+            storeFile file('endeavor-keystore.jks')
             storePassword 'spectrum'
         }
     }

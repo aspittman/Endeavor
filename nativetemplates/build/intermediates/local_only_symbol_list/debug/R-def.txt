@@ -47,4 +47,5 @@ id secondary
 layout gnt_medium_template_view
 layout gnt_small_template_view
 string gnt_ad_title
+string gnt_content_description
 styleable TemplateView gnt_template_type

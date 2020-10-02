@@ -1163,6 +1163,7 @@ int string abc_shareactionprovider_share_with_application 0x0
 int string abc_toolbar_collapse_description 0x0
 int string common_google_play_services_unknown_issue 0x0
 int string gnt_ad_title 0x0
+int string gnt_content_description 0x0
 int string s1 0x0
 int string s2 0x0
 int string s3 0x0
