@@ -1,7 +1,9 @@
 <resources>
     <string name="app_name">Endeavor</string>
 
-    <!--Navigation Drawer Options-->
+    <!--Toolbar Options-->
+    <string name="add_title">Add Document</string>
+    <string name="update_title">Update Document</string>
     <string name="add_option">AddForm</string>
     <string name="screenshot_option">Screenshot</string>
     <string name="dark_option">DarkMode</string>

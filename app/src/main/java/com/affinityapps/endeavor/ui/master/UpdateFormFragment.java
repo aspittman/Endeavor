@@ -2,6 +2,7 @@ package com.affinityapps.endeavor.ui.master;
 
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -14,6 +15,9 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
 import com.affinityapps.endeavor.R;
@@ -28,6 +32,8 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.Objects;
 
 import static com.affinityapps.endeavor.ui.home.HomeFragment.EXTRA_DATE;
 import static com.affinityapps.endeavor.ui.home.HomeFragment.EXTRA_HOURS;
@@ -58,11 +64,19 @@ public class UpdateFormFragment extends Fragment {
 
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = FragmentUpdateFormBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
+
+        Toolbar toolbar = binding.updateFormToolbar;
+        ((AppCompatActivity) Objects.requireNonNull(requireActivity())).setSupportActionBar(toolbar);
+        Objects.requireNonNull(((AppCompatActivity) Objects.requireNonNull(requireActivity()))
+                .getSupportActionBar()).setTitle(R.string.update_title);
+        Objects.requireNonNull(((AppCompatActivity) Objects.requireNonNull(requireActivity()))
+                .getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 
         AdLoader adLoader = new AdLoader.Builder(requireActivity(), "ca-app-pub-2999844319459986~8520610002")
                 .forUnifiedNativeAd(new UnifiedNativeAd.OnUnifiedNativeAdLoadedListener() {

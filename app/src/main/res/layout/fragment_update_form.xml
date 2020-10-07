@@ -11,6 +11,13 @@
         android:orientation="vertical"
         tools:context=".ui.master.AddFormActivity">
 
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/update_form_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:popupTheme="@style/AppTheme.PopupOverlay" />
+
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

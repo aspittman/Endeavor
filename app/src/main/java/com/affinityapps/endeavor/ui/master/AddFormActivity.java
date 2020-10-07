@@ -2,6 +2,7 @@ package com.affinityapps.endeavor.ui.master;
 
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -12,7 +13,9 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import com.affinityapps.endeavor.R;
 import com.affinityapps.endeavor.databinding.ActivityAddFormBinding;
@@ -26,6 +29,8 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.Objects;
 
 import static com.affinityapps.endeavor.ui.home.HomeFragment.EXTRA_DATE;
 import static com.affinityapps.endeavor.ui.home.HomeFragment.EXTRA_HOURS;
@@ -50,13 +55,18 @@ public class AddFormActivity extends AppCompatActivity {
     private EditText editPurchases;
 
 
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         final ActivityAddFormBinding binding = ActivityAddFormBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
+
+        Toolbar toolbar = binding.addFormToolbar;
+        setSupportActionBar(toolbar);
+        Objects.requireNonNull(getSupportActionBar()).setTitle(R.string.add_title);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         AdLoader adLoader = new AdLoader.Builder(this, "ca-app-pub-2999844319459986~8520610002")
                 .forUnifiedNativeAd(new UnifiedNativeAd.OnUnifiedNativeAdLoadedListener() {
